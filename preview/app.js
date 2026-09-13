@@ -1,8 +1,9 @@
 const fmtPct = (v) => `${(v * 100).toFixed(1).replace(".", ",")}%`;
 const fmtInt = (v) => new Intl.NumberFormat("pt-BR").format(v);
 const fmtSigned = (v) => `${v > 0 ? "+" : ""}${fmtInt(v)}`;
-const C = ["#0b2f4d", "#1a6fb3", "#3d8fc9", "#9ec4e4", "#e67e22", "#5d6d7e", "#1b7a42", "#7d3c98", "#16a085"];
-const tick = { color: "#0f1c2a", font: { family: "Inter", size: 11, weight: "700" } };
+const C = ["#7ec4ef", "#4aa3e0", "#2f87c8", "#1a6fb3", "#f0a04b", "#9ec4e4", "#5ed48a", "#8e6cff", "#16a085"];
+const tick = { color: "#d5e9f6", font: { family: "Inter", size: 11, weight: "700" } };
+const grid = "#1d5a86";
 
 async function boot() {
   const data = await (await fetch("data.json")).json();
@@ -95,7 +96,7 @@ function paintCharts(data) {
     type: "doughnut",
     data: {
       labels: data.representatividade.map((r) => r.nome),
-      datasets: [{ data: data.representatividade.map((r) => r.n), backgroundColor: ["#0b2f4d", "#9ec4e4"], borderWidth: 0, cutout: "62%" }],
+      datasets: [{ data: data.representatividade.map((r) => r.n), backgroundColor: ["#4aa3e0", "#7ec4ef"], borderWidth: 0, cutout: "62%" }],
     },
     options: {
       responsive: true,
@@ -112,8 +113,8 @@ function paintCharts(data) {
       datasets: [{
         label: "% PCD",
         data: data.evolucao.map((e) => +(e.pct * 100).toFixed(2)),
-        borderColor: "#1a6fb3",
-        backgroundColor: "rgba(26,111,179,0.18)",
+        borderColor: "#7ec4ef",
+        backgroundColor: "rgba(126,196,239,0.22)",
         fill: true,
         tension: 0.4,
         pointRadius: 0,
@@ -126,7 +127,7 @@ function paintCharts(data) {
       plugins: { legend: { display: false } },
       scales: {
         x: { ticks: { ...tick, maxTicksLimit: 10 }, grid: { display: false } },
-        y: { ticks: { ...tick, callback: (v) => v + "%" }, grid: { color: "#e8eef5" } },
+        y: { ticks: { ...tick, callback: (v) => v + "%" }, grid: { color: grid } },
       },
     },
   });
@@ -137,8 +138,8 @@ function paintCharts(data) {
     data: {
       labels: data.areas.map((a) => a.area),
       datasets: [
-        { label: "HC", data: data.areas.map((a) => a.hc), backgroundColor: "#9ec4e4", borderRadius: 3 },
-        { label: "PCD", data: data.areas.map((a) => a.hcPcd), backgroundColor: "#0b2f4d", borderRadius: 3 },
+        { label: "HC", data: data.areas.map((a) => a.hc), backgroundColor: "#7ec4ef", borderRadius: 3 },
+        { label: "PCD", data: data.areas.map((a) => a.hcPcd), backgroundColor: "#1a7ec4", borderRadius: 3 },
       ],
     },
     options: {
@@ -147,7 +148,7 @@ function paintCharts(data) {
       plugins: { legend: { labels: { ...tick, boxWidth: 10 } } },
       scales: {
         x: { ticks: { ...tick, maxRotation: 40, font: { ...tick.font, size: 10 } }, grid: { display: false } },
-        y: { ticks: tick, grid: { color: "#e8eef5" }, beginAtZero: true },
+        y: { ticks: tick, grid: { color: grid }, beginAtZero: true },
       },
     },
   });
@@ -160,7 +161,7 @@ function paintCharts(data) {
       datasets: [{
         label: "% do PCD",
         data: data.areas.map((a) => +(a.sharePcd * 100).toFixed(1)),
-        backgroundColor: "#1a6fb3",
+        backgroundColor: "#4aa3e0",
         borderRadius: 4,
       }],
     },
@@ -170,7 +171,7 @@ function paintCharts(data) {
       maintainAspectRatio: false,
       plugins: { legend: { display: false } },
       scales: {
-        x: { ticks: { ...tick, callback: (v) => v + "%" }, grid: { color: "#e8eef5" } },
+        x: { ticks: { ...tick, callback: (v) => v + "%" }, grid: { color: grid } },
         y: { ticks: { ...tick, font: { ...tick.font, size: 10 } }, grid: { display: false } },
       },
     },
@@ -197,8 +198,8 @@ function paintCharts(data) {
     data: {
       labels: data.turnos.map((t) => t.turno),
       datasets: [
-        { label: "HC", data: data.turnos.map((t) => t.hc), backgroundColor: "#9ec4e4", borderRadius: 4 },
-        { label: "PCD", data: data.turnos.map((t) => t.hcPcd), backgroundColor: "#0b2f4d", borderRadius: 4 },
+        { label: "HC", data: data.turnos.map((t) => t.hc), backgroundColor: "#7ec4ef", borderRadius: 4 },
+        { label: "PCD", data: data.turnos.map((t) => t.hcPcd), backgroundColor: "#1a7ec4", borderRadius: 4 },
       ],
     },
     options: {
@@ -207,7 +208,7 @@ function paintCharts(data) {
       plugins: { legend: { labels: { ...tick, boxWidth: 10 } } },
       scales: {
         x: { ticks: { ...tick, font: { ...tick.font, size: 10 } }, grid: { display: false } },
-        y: { ticks: tick, grid: { color: "#e8eef5" }, beginAtZero: true },
+        y: { ticks: tick, grid: { color: grid }, beginAtZero: true },
       },
     },
   });
@@ -217,7 +218,7 @@ function paintCharts(data) {
     type: "bar",
     data: {
       labels: data.tenure.map((t) => t.faixa),
-      datasets: [{ label: "PCD", data: data.tenure.map((t) => t.n), backgroundColor: "#3d8fc9", borderRadius: 4 }],
+      datasets: [{ label: "PCD", data: data.tenure.map((t) => t.n), backgroundColor: "#4aa3e0", borderRadius: 4 }],
     },
     options: {
       responsive: true,
@@ -225,7 +226,7 @@ function paintCharts(data) {
       plugins: { legend: { display: false } },
       scales: {
         x: { ticks: tick, grid: { display: false } },
-        y: { ticks: tick, grid: { color: "#e8eef5" }, beginAtZero: true },
+        y: { ticks: tick, grid: { color: grid }, beginAtZero: true },
       },
     },
   });
@@ -237,8 +238,8 @@ function paintCharts(data) {
     data: {
       labels: lm.map((m) => m.anoMes.slice(5) + "/" + m.anoMes.slice(2, 4)),
       datasets: [
-        { label: "Admissões", data: lm.map((m) => m.admissoes), backgroundColor: "#1b7a42", borderRadius: 3 },
-        { label: "Desligamentos", data: lm.map((m) => m.desligamentos), backgroundColor: "#e67e22", borderRadius: 3 },
+        { label: "Admissões", data: lm.map((m) => m.admissoes), backgroundColor: "#5ed48a", borderRadius: 3 },
+        { label: "Desligamentos", data: lm.map((m) => m.desligamentos), backgroundColor: "#f0a04b", borderRadius: 3 },
       ],
     },
     options: {
@@ -247,7 +248,7 @@ function paintCharts(data) {
       plugins: { legend: { labels: { ...tick, boxWidth: 10 } } },
       scales: {
         x: { ticks: { ...tick, maxTicksLimit: 8 }, grid: { display: false } },
-        y: { ticks: tick, grid: { color: "#e8eef5" }, beginAtZero: true },
+        y: { ticks: tick, grid: { color: grid }, beginAtZero: true },
       },
     },
   });
@@ -258,8 +259,8 @@ function paintCharts(data) {
     data: {
       labels: data.classificacao.map((c) => c.nome),
       datasets: [
-        { label: "HC", data: data.classificacao.map((c) => c.hc), backgroundColor: "#9ec4e4", borderRadius: 4 },
-        { label: "PCD", data: data.classificacao.map((c) => c.hcPcd), backgroundColor: "#0b2f4d", borderRadius: 4 },
+        { label: "HC", data: data.classificacao.map((c) => c.hc), backgroundColor: "#7ec4ef", borderRadius: 4 },
+        { label: "PCD", data: data.classificacao.map((c) => c.hcPcd), backgroundColor: "#1a7ec4", borderRadius: 4 },
       ],
     },
     options: {
@@ -278,7 +279,7 @@ function paintCharts(data) {
       },
       scales: {
         x: { ticks: tick, grid: { display: false } },
-        y: { ticks: tick, grid: { color: "#e8eef5" }, beginAtZero: true },
+        y: { ticks: tick, grid: { color: grid }, beginAtZero: true },
       },
     },
   });
@@ -292,8 +293,8 @@ function paintCharts(data) {
         {
           label: "Realizado",
           data: data.evolucao.map((e) => +(e.pct * 100).toFixed(2)),
-          borderColor: "#0b2f4d",
-          backgroundColor: "rgba(11,47,77,0.12)",
+          borderColor: "#7ec4ef",
+          backgroundColor: "rgba(126,196,239,0.18)",
           fill: true,
           tension: 0.35,
           pointRadius: 0,
@@ -302,7 +303,7 @@ function paintCharts(data) {
         {
           label: "Meta",
           data: data.evolucao.map((e) => +(e.meta * 100).toFixed(2)),
-          borderColor: "#e67e22",
+          borderColor: "#f0a04b",
           borderDash: [6, 4],
           pointRadius: 0,
           borderWidth: 2,
@@ -315,7 +316,7 @@ function paintCharts(data) {
       plugins: { legend: { labels: { ...tick, boxWidth: 10 } } },
       scales: {
         x: { ticks: { ...tick, maxTicksLimit: 8 }, grid: { display: false } },
-        y: { ticks: { ...tick, callback: (v) => v + "%" }, grid: { color: "#e8eef5" } },
+        y: { ticks: { ...tick, callback: (v) => v + "%" }, grid: { color: grid } },
       },
     },
   });
@@ -328,7 +329,7 @@ function paintCharts(data) {
       datasets: [{
         label: "Taxa",
         data: data.turnover.map((t) => +(t.taxa * 100).toFixed(2)),
-        backgroundColor: ["#0b2f4d", "#3d8fc9"],
+        backgroundColor: ["#4aa3e0", "#7ec4ef"],
         borderRadius: 6,
         barThickness: 48,
       }],
@@ -339,12 +340,12 @@ function paintCharts(data) {
       plugins: { legend: { display: false } },
       scales: {
         x: { ticks: tick, grid: { display: false } },
-        y: { ticks: { ...tick, callback: (v) => v + "%" }, grid: { color: "#e8eef5" }, beginAtZero: true },
+        y: { ticks: { ...tick, callback: (v) => v + "%" }, grid: { color: grid }, beginAtZero: true },
       },
     },
   });
 }
 
 boot().catch((e) => {
-  document.body.innerHTML = `<p style="padding:24px;font-family:Inter,sans-serif;font-weight:800">Erro data.json<br>${e}</p>`;
+  document.body.innerHTML = `<p style="padding:24px;font-family:Inter,sans-serif;font-weight:800;color:#e8f3fb;background:#072844">Erro data.json<br>${e}</p>`;
 });
