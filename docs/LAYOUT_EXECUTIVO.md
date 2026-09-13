@@ -20,10 +20,12 @@ Canvas sugerido: **1920 × 1080** (1 página principal). Tema: azul `#0B3A5B` / 
 
 ## Filtros
 
-**Visíveis (barra superior):** Ano | Mês | Planta | Diretoria | Oficina  
+**Visíveis (barra superior):** Ano | Mês | Planta | Diretoria | Área | Turno  
 
 **Painel / botão “Filtros” (bookmark + selection pane):**  
-Gerência, Área, Turno, Classificação, Tipo de Deficiência, PCD, Status, Liderança  
+Gerência, Classificação, Tipo de Deficiência, PCD, Status, Liderança  
+
+**Áreas oficiais (9):** Montagem · Qualidade · Pintura · Logística · Funilaria · Supply Chain · Prensa · General Service · Staff e Outras  
 
 Usar **Bookmarks** + botão para abrir/fechar o painel lateral (padrão executivo).
 

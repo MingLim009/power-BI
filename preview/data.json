@@ -1,504 +1,525 @@
 {
   "kpis": {
-    "hcTotal": 1109,
-    "hcPcd": 51,
-    "pctPcd": 0.046,
+    "hcTotal": 1103,
+    "hcPcd": 50,
+    "pctPcd": 0.0453,
     "meta": 0.05,
-    "gap": -0.004,
-    "admissoes": 55,
-    "desligamentos": 4,
-    "promocoes": 3,
-    "movInternas": 4,
-    "saldo": 51,
-    "tenureYears": 3.53,
-    "pctLideranca": 0.2353,
-    "pctBlue": 0.5294,
-    "pctWhite": 0.4706,
-    "qtdOficinas": 8,
-    "atingimentoMeta": 0.9197
+    "gap": -0.0047,
+    "admissoes": 53,
+    "desligamentos": 3,
+    "promocoes": 1,
+    "movInternas": 6,
+    "saldo": 50,
+    "tenureYears": 4.45,
+    "pctLideranca": 0.14,
+    "pctBlue": 0.62,
+    "pctWhite": 0.38,
+    "qtdOficinas": 9,
+    "atingimentoMeta": 0.9066
   },
   "oficinas": [
     {
-      "oficina": "Oficina 04 - Montagem A",
-      "hc": 127,
-      "hcPcd": 10,
-      "pct": 0.0787,
-      "gap": 0.0287
-    },
-    {
-      "oficina": "Oficina 03 - Pintura",
-      "hc": 131,
+      "oficina": "Pintura",
+      "hc": 129,
       "hcPcd": 9,
-      "pct": 0.0687,
-      "gap": 0.0187
+      "pct": 0.0698,
+      "gap": 0.0198
     },
     {
-      "oficina": "Oficina 07 - Qualidade",
-      "hc": 138,
+      "oficina": "Prensa",
+      "hc": 134,
       "hcPcd": 8,
-      "pct": 0.058,
-      "gap": 0.008
+      "pct": 0.0597,
+      "gap": 0.0097
     },
     {
-      "oficina": "Oficina 08 - Logística",
-      "hc": 135,
+      "oficina": "Supply Chain",
+      "hc": 116,
       "hcPcd": 6,
-      "pct": 0.0444,
-      "gap": -0.0056
+      "pct": 0.0517,
+      "gap": 0.0017
     },
     {
-      "oficina": "Oficina 02 - Solda",
-      "hc": 156,
+      "oficina": "Qualidade",
+      "hc": 124,
       "hcPcd": 6,
-      "pct": 0.0385,
-      "gap": -0.0115
+      "pct": 0.0484,
+      "gap": -0.0016
     },
     {
-      "oficina": "Oficina 06 - Usinagem",
-      "hc": 149,
-      "hcPcd": 5,
-      "pct": 0.0336,
-      "gap": -0.0164
+      "oficina": "General Service",
+      "hc": 128,
+      "hcPcd": 6,
+      "pct": 0.0469,
+      "gap": -0.0031
     },
     {
-      "oficina": "Oficina 01 - Estamparia",
-      "hc": 148,
+      "oficina": "Montagem",
+      "hc": 106,
       "hcPcd": 4,
-      "pct": 0.027,
-      "gap": -0.023
+      "pct": 0.0377,
+      "gap": -0.0123
     },
     {
-      "oficina": "Oficina 05 - Montagem B",
-      "hc": 125,
+      "oficina": "Logística",
+      "hc": 121,
+      "hcPcd": 4,
+      "pct": 0.0331,
+      "gap": -0.0169
+    },
+    {
+      "oficina": "Funilaria",
+      "hc": 140,
+      "hcPcd": 4,
+      "pct": 0.0286,
+      "gap": -0.0214
+    },
+    {
+      "oficina": "Staff e Outras",
+      "hc": 105,
       "hcPcd": 3,
-      "pct": 0.024,
-      "gap": -0.026
+      "pct": 0.0286,
+      "gap": -0.0214
     }
   ],
   "ranking": [
     {
       "rank": 1,
-      "oficina": "Oficina 04 - Montagem A",
-      "hc": 127,
-      "hcPcd": 10,
-      "pct": 0.0787,
-      "gap": 0.0287,
+      "oficina": "Pintura",
+      "hc": 129,
+      "hcPcd": 9,
+      "pct": 0.0698,
+      "gap": 0.0198,
       "meta": 0.05
     },
     {
       "rank": 2,
-      "oficina": "Oficina 03 - Pintura",
-      "hc": 131,
-      "hcPcd": 9,
-      "pct": 0.0687,
-      "gap": 0.0187,
+      "oficina": "Prensa",
+      "hc": 134,
+      "hcPcd": 8,
+      "pct": 0.0597,
+      "gap": 0.0097,
       "meta": 0.05
     },
     {
       "rank": 3,
-      "oficina": "Oficina 07 - Qualidade",
-      "hc": 138,
-      "hcPcd": 8,
-      "pct": 0.058,
-      "gap": 0.008,
+      "oficina": "Supply Chain",
+      "hc": 116,
+      "hcPcd": 6,
+      "pct": 0.0517,
+      "gap": 0.0017,
       "meta": 0.05
     },
     {
       "rank": 4,
-      "oficina": "Oficina 08 - Logística",
-      "hc": 135,
+      "oficina": "Qualidade",
+      "hc": 124,
       "hcPcd": 6,
-      "pct": 0.0444,
-      "gap": -0.0056,
+      "pct": 0.0484,
+      "gap": -0.0016,
       "meta": 0.05
     },
     {
       "rank": 5,
-      "oficina": "Oficina 02 - Solda",
-      "hc": 156,
+      "oficina": "General Service",
+      "hc": 128,
       "hcPcd": 6,
-      "pct": 0.0385,
-      "gap": -0.0115,
+      "pct": 0.0469,
+      "gap": -0.0031,
       "meta": 0.05
     },
     {
       "rank": 6,
-      "oficina": "Oficina 06 - Usinagem",
-      "hc": 149,
-      "hcPcd": 5,
-      "pct": 0.0336,
-      "gap": -0.0164,
+      "oficina": "Montagem",
+      "hc": 106,
+      "hcPcd": 4,
+      "pct": 0.0377,
+      "gap": -0.0123,
       "meta": 0.05
     },
     {
       "rank": 7,
-      "oficina": "Oficina 01 - Estamparia",
-      "hc": 148,
+      "oficina": "Logística",
+      "hc": 121,
       "hcPcd": 4,
-      "pct": 0.027,
-      "gap": -0.023,
+      "pct": 0.0331,
+      "gap": -0.0169,
       "meta": 0.05
     },
     {
       "rank": 8,
-      "oficina": "Oficina 05 - Montagem B",
-      "hc": 125,
+      "oficina": "Funilaria",
+      "hc": 140,
+      "hcPcd": 4,
+      "pct": 0.0286,
+      "gap": -0.0214,
+      "meta": 0.05
+    },
+    {
+      "rank": 9,
+      "oficina": "Staff e Outras",
+      "hc": 105,
       "hcPcd": 3,
-      "pct": 0.024,
-      "gap": -0.026,
+      "pct": 0.0286,
+      "gap": -0.0214,
       "meta": 0.05
     }
   ],
   "turnos": [
     {
       "turno": "1º Turno",
-      "hc": 254,
-      "hcPcd": 10,
-      "pct": 0.0394
+      "hc": 260,
+      "hcPcd": 17,
+      "pct": 0.0654
     },
     {
       "turno": "2º Turno",
-      "hc": 262,
-      "hcPcd": 16,
-      "pct": 0.0611
+      "hc": 251,
+      "hcPcd": 11,
+      "pct": 0.0438
     },
     {
       "turno": "3º Turno",
       "hc": 148,
-      "hcPcd": 6,
-      "pct": 0.0405
+      "hcPcd": 5,
+      "pct": 0.0338
     },
     {
       "turno": "Administrativo",
-      "hc": 445,
-      "hcPcd": 19,
-      "pct": 0.0427
+      "hc": 444,
+      "hcPcd": 17,
+      "pct": 0.0383
     }
   ],
   "plantas": [
     {
       "planta": "Planta Leste",
-      "hc": 256,
-      "hcPcd": 12,
-      "pct": 0.0469
+      "hc": 240,
+      "hcPcd": 9,
+      "pct": 0.0375
     },
     {
       "planta": "Planta Norte",
-      "hc": 294,
-      "hcPcd": 14,
-      "pct": 0.0476
+      "hc": 288,
+      "hcPcd": 20,
+      "pct": 0.0694
     },
     {
       "planta": "Planta Oeste",
-      "hc": 280,
-      "hcPcd": 13,
-      "pct": 0.0464
+      "hc": 311,
+      "hcPcd": 11,
+      "pct": 0.0354
     },
     {
       "planta": "Planta Sul",
-      "hc": 279,
-      "hcPcd": 12,
-      "pct": 0.043
+      "hc": 264,
+      "hcPcd": 10,
+      "pct": 0.0379
     }
   ],
   "tipos": [
     {
-      "tipo": "Auditiva",
+      "tipo": "Múltipla",
       "n": 12
     },
     {
       "tipo": "Intelectual",
-      "n": 12
+      "n": 11
     },
     {
       "tipo": "Física",
-      "n": 10
+      "n": 11
     },
     {
-      "tipo": "Múltipla",
+      "tipo": "Auditiva",
       "n": 9
     },
     {
       "tipo": "Visual",
-      "n": 8
+      "n": 7
     }
   ],
   "classificacao": [
     {
       "nome": "Blue Collar",
-      "n": 27
+      "n": 31
     },
     {
       "nome": "White Collar",
-      "n": 24
+      "n": 19
     }
   ],
   "movOficina": [
     {
-      "oficina": "Oficina 01 - Estamparia",
+      "oficina": "Funilaria",
+      "admissao": 5,
+      "desligamento": 1
+    },
+    {
+      "oficina": "General Service",
+      "admissao": 7,
+      "desligamento": 1
+    },
+    {
+      "oficina": "Logística",
+      "admissao": 5,
+      "desligamento": 1
+    },
+    {
+      "oficina": "Montagem",
       "admissao": 4,
       "desligamento": 0
     },
     {
-      "oficina": "Oficina 02 - Solda",
+      "oficina": "Pintura",
+      "admissao": 9,
+      "desligamento": 0
+    },
+    {
+      "oficina": "Prensa",
+      "admissao": 8,
+      "desligamento": 0
+    },
+    {
+      "oficina": "Qualidade",
       "admissao": 6,
       "desligamento": 0
     },
     {
-      "oficina": "Oficina 03 - Pintura",
-      "admissao": 10,
-      "desligamento": 1
-    },
-    {
-      "oficina": "Oficina 04 - Montagem A",
-      "admissao": 10,
+      "oficina": "Staff e Outras",
+      "admissao": 3,
       "desligamento": 0
     },
     {
-      "oficina": "Oficina 05 - Montagem B",
-      "admissao": 4,
-      "desligamento": 1
-    },
-    {
-      "oficina": "Oficina 06 - Usinagem",
-      "admissao": 5,
+      "oficina": "Supply Chain",
+      "admissao": 6,
       "desligamento": 0
-    },
-    {
-      "oficina": "Oficina 07 - Qualidade",
-      "admissao": 9,
-      "desligamento": 1
-    },
-    {
-      "oficina": "Oficina 08 - Logística",
-      "admissao": 7,
-      "desligamento": 1
     }
   ],
   "evolucao": [
     {
       "anoMes": "2024-01",
-      "pct": 0.0338,
+      "pct": 0.0347,
       "meta": 0.05,
-      "hcPcd": 41,
-      "hcTotal": 1213
+      "hcPcd": 53,
+      "hcTotal": 1529
     },
     {
       "anoMes": "2024-02",
-      "pct": 0.0349,
+      "pct": 0.0368,
       "meta": 0.05,
-      "hcPcd": 41,
-      "hcTotal": 1176
+      "hcPcd": 58,
+      "hcTotal": 1578
     },
     {
       "anoMes": "2024-03",
-      "pct": 0.0323,
+      "pct": 0.036,
       "meta": 0.05,
-      "hcPcd": 38,
-      "hcTotal": 1177
+      "hcPcd": 53,
+      "hcTotal": 1471
     },
     {
       "anoMes": "2024-04",
-      "pct": 0.037,
+      "pct": 0.0358,
       "meta": 0.05,
-      "hcPcd": 47,
-      "hcTotal": 1270
+      "hcPcd": 58,
+      "hcTotal": 1618
     },
     {
       "anoMes": "2024-05",
-      "pct": 0.0372,
+      "pct": 0.0392,
       "meta": 0.05,
-      "hcPcd": 47,
-      "hcTotal": 1264
+      "hcPcd": 61,
+      "hcTotal": 1555
     },
     {
       "anoMes": "2024-06",
-      "pct": 0.036,
+      "pct": 0.0395,
       "meta": 0.05,
-      "hcPcd": 44,
-      "hcTotal": 1221
+      "hcPcd": 59,
+      "hcTotal": 1494
     },
     {
       "anoMes": "2024-07",
-      "pct": 0.037,
+      "pct": 0.0402,
       "meta": 0.05,
-      "hcPcd": 46,
-      "hcTotal": 1242
+      "hcPcd": 61,
+      "hcTotal": 1517
     },
     {
       "anoMes": "2024-08",
-      "pct": 0.0392,
+      "pct": 0.041,
       "meta": 0.05,
-      "hcPcd": 46,
-      "hcTotal": 1172
+      "hcPcd": 62,
+      "hcTotal": 1513
     },
     {
       "anoMes": "2024-09",
-      "pct": 0.0369,
+      "pct": 0.0378,
       "meta": 0.05,
-      "hcPcd": 46,
-      "hcTotal": 1246
+      "hcPcd": 58,
+      "hcTotal": 1536
     },
     {
       "anoMes": "2024-10",
-      "pct": 0.0434,
+      "pct": 0.042,
       "meta": 0.05,
-      "hcPcd": 54,
-      "hcTotal": 1245
+      "hcPcd": 68,
+      "hcTotal": 1618
     },
     {
       "anoMes": "2024-11",
-      "pct": 0.0401,
+      "pct": 0.0416,
       "meta": 0.05,
-      "hcPcd": 48,
-      "hcTotal": 1196
+      "hcPcd": 66,
+      "hcTotal": 1587
     },
     {
       "anoMes": "2024-12",
-      "pct": 0.0406,
+      "pct": 0.0411,
       "meta": 0.05,
-      "hcPcd": 50,
-      "hcTotal": 1232
+      "hcPcd": 67,
+      "hcTotal": 1630
     },
     {
       "anoMes": "2025-01",
-      "pct": 0.0417,
+      "pct": 0.0408,
       "meta": 0.05,
-      "hcPcd": 52,
-      "hcTotal": 1246
+      "hcPcd": 67,
+      "hcTotal": 1642
     },
     {
       "anoMes": "2025-02",
-      "pct": 0.0438,
+      "pct": 0.0416,
       "meta": 0.05,
-      "hcPcd": 52,
-      "hcTotal": 1188
+      "hcPcd": 67,
+      "hcTotal": 1611
     },
     {
       "anoMes": "2025-03",
-      "pct": 0.0424,
+      "pct": 0.0415,
       "meta": 0.05,
-      "hcPcd": 53,
-      "hcTotal": 1250
+      "hcPcd": 68,
+      "hcTotal": 1640
     },
     {
       "anoMes": "2025-04",
-      "pct": 0.0413,
+      "pct": 0.0409,
       "meta": 0.05,
-      "hcPcd": 51,
-      "hcTotal": 1235
+      "hcPcd": 67,
+      "hcTotal": 1639
     },
     {
       "anoMes": "2025-05",
-      "pct": 0.0418,
+      "pct": 0.0441,
       "meta": 0.05,
-      "hcPcd": 54,
-      "hcTotal": 1293
+      "hcPcd": 70,
+      "hcTotal": 1587
     },
     {
       "anoMes": "2025-06",
-      "pct": 0.0426,
+      "pct": 0.0459,
       "meta": 0.05,
-      "hcPcd": 55,
-      "hcTotal": 1291
+      "hcPcd": 74,
+      "hcTotal": 1611
     },
     {
       "anoMes": "2025-07",
-      "pct": 0.0426,
+      "pct": 0.0448,
       "meta": 0.05,
-      "hcPcd": 59,
-      "hcTotal": 1386
+      "hcPcd": 77,
+      "hcTotal": 1718
     },
     {
       "anoMes": "2025-08",
-      "pct": 0.0471,
+      "pct": 0.0478,
       "meta": 0.05,
-      "hcPcd": 63,
-      "hcTotal": 1337
+      "hcPcd": 81,
+      "hcTotal": 1694
     },
     {
       "anoMes": "2025-09",
-      "pct": 0.0447,
+      "pct": 0.0448,
       "meta": 0.05,
-      "hcPcd": 60,
-      "hcTotal": 1342
+      "hcPcd": 75,
+      "hcTotal": 1673
     },
     {
       "anoMes": "2025-10",
-      "pct": 0.0456,
+      "pct": 0.0475,
       "meta": 0.05,
-      "hcPcd": 59,
-      "hcTotal": 1293
+      "hcPcd": 80,
+      "hcTotal": 1684
     },
     {
       "anoMes": "2025-11",
-      "pct": 0.0456,
+      "pct": 0.0469,
       "meta": 0.05,
-      "hcPcd": 61,
-      "hcTotal": 1338
+      "hcPcd": 78,
+      "hcTotal": 1664
     },
     {
       "anoMes": "2025-12",
-      "pct": 0.0466,
+      "pct": 0.047,
       "meta": 0.05,
-      "hcPcd": 56,
-      "hcTotal": 1203
+      "hcPcd": 78,
+      "hcTotal": 1660
     },
     {
       "anoMes": "2026-01",
-      "pct": 0.0458,
+      "pct": 0.0471,
       "meta": 0.05,
-      "hcPcd": 55,
-      "hcTotal": 1202
+      "hcPcd": 78,
+      "hcTotal": 1656
     },
     {
       "anoMes": "2026-02",
-      "pct": 0.0485,
+      "pct": 0.0468,
       "meta": 0.05,
-      "hcPcd": 62,
-      "hcTotal": 1278
+      "hcPcd": 78,
+      "hcTotal": 1666
     },
     {
       "anoMes": "2026-03",
-      "pct": 0.0489,
+      "pct": 0.0487,
       "meta": 0.05,
-      "hcPcd": 66,
-      "hcTotal": 1350
+      "hcPcd": 86,
+      "hcTotal": 1765
     },
     {
       "anoMes": "2026-04",
-      "pct": 0.05,
+      "pct": 0.0509,
       "meta": 0.05,
-      "hcPcd": 68,
-      "hcTotal": 1359
+      "hcPcd": 85,
+      "hcTotal": 1671
     },
     {
       "anoMes": "2026-05",
-      "pct": 0.0501,
+      "pct": 0.0508,
       "meta": 0.05,
-      "hcPcd": 66,
-      "hcTotal": 1318
+      "hcPcd": 86,
+      "hcTotal": 1693
     },
     {
       "anoMes": "2026-06",
-      "pct": 0.0466,
+      "pct": 0.05,
       "meta": 0.05,
-      "hcPcd": 64,
-      "hcTotal": 1374
+      "hcPcd": 83,
+      "hcTotal": 1661
     },
     {
       "anoMes": "2026-07",
-      "pct": 0.0491,
+      "pct": 0.0485,
       "meta": 0.05,
-      "hcPcd": 63,
-      "hcTotal": 1283
+      "hcPcd": 83,
+      "hcTotal": 1712
     },
     {
       "anoMes": "2026-08",
-      "pct": 0.0491,
+      "pct": 0.0486,
       "meta": 0.05,
-      "hcPcd": 65,
-      "hcTotal": 1324
+      "hcPcd": 89,
+      "hcTotal": 1833
     }
   ],
   "filtros": {
@@ -516,14 +537,15 @@
       "Supply Chain"
     ],
     "oficinas": [
-      "Oficina 01 - Estamparia",
-      "Oficina 02 - Solda",
-      "Oficina 03 - Pintura",
-      "Oficina 04 - Montagem A",
-      "Oficina 05 - Montagem B",
-      "Oficina 06 - Usinagem",
-      "Oficina 07 - Qualidade",
-      "Oficina 08 - Logística"
+      "Funilaria",
+      "General Service",
+      "Logística",
+      "Montagem",
+      "Pintura",
+      "Prensa",
+      "Qualidade",
+      "Staff e Outras",
+      "Supply Chain"
     ],
     "turnos": [
       "1º Turno",

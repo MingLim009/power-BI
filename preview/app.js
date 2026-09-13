@@ -61,7 +61,7 @@ function paintRanking(rows) {
   document.getElementById("rankBody").innerHTML = rows
     .map((r) => {
       const gapCls = r.gap < 0 ? "gap-neg" : "gap-pos";
-      const name = r.oficina.replace(/^Oficina\s*/, "");
+      const name = r.oficina;
       return `<tr>
         <td>${r.rank}</td>
         <td class="name" title="${r.oficina}">${name}</td>
@@ -158,7 +158,7 @@ function paintCharts(data) {
   });
 
   // Mov oficinas
-  const short = (s) => s.replace(/^Oficina\s*/, "").split(" - ")[0];
+  const short = (s) => s;
   new Chart(document.getElementById("chartMov"), {
     type: "bar",
     data: {

@@ -113,8 +113,12 @@ GAP Historico =
 
 // --- Apoio ---
 
+Qtd Areas = 
+DISTINCTCOUNT ( COLABORADORES[Área] )
+
 Qtd Oficinas = 
 DISTINCTCOUNT ( COLABORADORES[Oficina] )
+// Com as 9 áreas oficiais, Área e Oficina compartilham o mesmo domínio.
 
 HC Total Sem Filtro Status = 
 COUNTROWS ( COLABORADORES )

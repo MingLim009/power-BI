@@ -32,26 +32,19 @@ GERENCIAS = [
     "Engenharia",
     "Comercial",
 ]
+# 9 áreas oficiais (cliente) — usadas em Área e Oficina (mesmo domínio)
 AREAS = [
-    "Produção",
     "Montagem",
-    "Embalagem",
-    "Expedição",
-    "Almoxarifado",
-    "Facilities",
-    "TI",
-    "SSC",
+    "Qualidade",
+    "Pintura",
+    "Logística",
+    "Funilaria",
+    "Supply Chain",
+    "Prensa",
+    "General Service",
+    "Staff e Outras",
 ]
-OFICINAS = [
-    "Oficina 01 - Estamparia",
-    "Oficina 02 - Solda",
-    "Oficina 03 - Pintura",
-    "Oficina 04 - Montagem A",
-    "Oficina 05 - Montagem B",
-    "Oficina 06 - Usinagem",
-    "Oficina 07 - Qualidade",
-    "Oficina 08 - Logística",
-]
+OFICINAS = AREAS  # análise por área oficial (9)
 TURNOS = ["1º Turno", "2º Turno", "3º Turno", "Administrativo"]
 CLASSIFICACOES = ["Blue Collar", "White Collar"]
 TIPOS_DEF = [
@@ -125,10 +118,12 @@ def build_colaboradores() -> pd.DataFrame:
         diretoria = random.choice(DIRETORIAS)
         gerencia = random.choice(GERENCIAS)
         area = random.choice(AREAS)
-        oficina = random.choice(OFICINAS)
-        # Blue collar heavier in production oficinas
-        if "Montagem" in oficina or "Estamparia" in oficina or "Solda" in oficina:
+        oficina = area  # alinhado às 9 áreas oficiais
+        # Blue collar heavier in production areas
+        if area in {"Montagem", "Pintura", "Funilaria", "Prensa"}:
             classificacao = random.choices(CLASSIFICACOES, weights=[78, 22])[0]
+        elif area in {"Staff e Outras", "Supply Chain", "General Service"}:
+            classificacao = random.choices(CLASSIFICACOES, weights=[30, 70])[0]
         else:
             classificacao = random.choices(CLASSIFICACOES, weights=[45, 55])[0]
 
@@ -161,7 +156,7 @@ def build_colaboradores() -> pd.DataFrame:
             dt_desl = None
         else:
             status = "Desligado"
-            max_days = max(1, (END_REF - dt_adm).days)
+            max_days = max(61, (END_REF - dt_adm).days)
             dt_desl = dt_adm + timedelta(days=random.randint(60, max_days))
             if dt_desl > END_REF:
                 dt_desl = END_REF - timedelta(days=random.randint(0, 60))
@@ -249,7 +244,7 @@ def build_movimentacoes(colab: pd.DataFrame) -> pd.DataFrame:
         if move_day > END_REF:
             continue
         nova_area = random.choice(AREAS)
-        nova_oficina = random.choice(OFICINAS)
+        nova_oficina = nova_area
         novo_cargo = (
             random.choice(CARGOS_LIDER + CARGOS_WC)
             if kind == "Promoção"
@@ -290,7 +285,7 @@ def build_historico_mensal(colab: pd.DataFrame) -> pd.DataFrame:
         pcd_lift = min(0.012, mi * 0.00045)
         for planta in PLANTAS:
             for oficina in OFICINAS:
-                base = random.randint(28, 48)
+                base = random.randint(32, 55)
                 hc = int(base * growth * random.uniform(0.92, 1.08))
                 rate = 0.035 + pcd_lift + random.uniform(-0.008, 0.01)
                 rate = max(0.015, min(0.09, rate))
@@ -395,8 +390,10 @@ def main():
         "Abas:",
         "1) COLABORADORES — cadastro e situação atual",
         "2) MOVIMENTAÇÕES — Admissão | Desligamento | Promoção | Movimentação Interna",
-        "3) HISTÓRICO MENSAL — HC Total e HC PCD por Ano/Mês/Planta/Oficina",
-        "4) METAS — Meta % PCD por período/planta/oficina (padrão 5%)",
+        "3) HISTÓRICO MENSAL — HC Total e HC PCD por Ano/Mês/Planta/Área (Oficina = área oficial)",
+        "4) METAS — Meta % PCD por período/planta/área",
+        "",
+        "Áreas oficiais (9): Montagem, Qualidade, Pintura, Logística, Funilaria, Supply Chain, Prensa, General Service, Staff e Outras",
         "",
         "Calendário: criado no Power BI (não entra no Excel).",
         f"Gerado em: {date.today().isoformat()} | Seed={SEED} | Meta padrão={META_PCT:.0%}",

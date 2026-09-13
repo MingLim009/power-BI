@@ -20,13 +20,13 @@
         <label>Mês<select id="fMes"><option value="">Todos</option></select></label>
         <label>Planta<select id="fPlanta"><option value="">Todas</option></select></label>
         <label>Diretoria<select id="fDiretoria"><option value="">Todas</option></select></label>
-        <label>Oficina<select id="fOficina"><option value="">Todas</option></select></label>
+        <label>Área<select id="fOficina"><option value="">Todas</option></select></label>
         <label>Turno<select id="fTurno"><option value="">Todos</option></select></label>
       </div>
       <button type="button" class="btn-more" id="btnMore">Filtros +</button>
     </header>
     <div class="more-box" id="moreBox" hidden>
-      Filtros no Power BI: Gerência · Área · Classificação · Tipo de Deficiência · PCD · Status · Liderança
+      Filtros no Power BI: Gerência · Classificação · Tipo de Deficiência · PCD · Status · Liderança
     </div>
 
     <!-- 6 KPI cards -->
@@ -88,13 +88,13 @@
         <div class="chart-h"><canvas id="chartCombo"></canvas></div>
       </article>
       <article class="card">
-        <h2>Ranking por Oficina</h2>
+        <h2>Ranking por Área</h2>
         <div class="table-scroll">
           <table class="rank-table">
             <thead>
               <tr>
                 <th>#</th>
-                <th>Oficina</th>
+                <th>Área</th>
                 <th>HC</th>
                 <th>PCD</th>
                 <th>% PCD</th>
@@ -128,7 +128,7 @@
       </article>
 
       <article class="card">
-        <h2>Admissões × Desligamentos PCD</h2>
+        <h2>Admissões × Desligamentos PCD por Área</h2>
         <div class="chart-h"><canvas id="chartMov"></canvas></div>
       </article>
 
@@ -157,7 +157,7 @@
           <li><span>Saldo líquido</span><b id="sSaldo">—</b></li>
           <li><span>Tempo médio empresa</span><b id="sTen">—</b></li>
           <li><span>% Blue / White</span><b id="sBw">—</b></li>
-          <li><span>Oficinas</span><b id="sOfi">—</b></li>
+          <li><span>Áreas</span><b id="sOfi">—</b></li>
         </ul>
       </article>
     </section>
