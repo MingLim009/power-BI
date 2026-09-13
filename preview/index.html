@@ -14,6 +14,11 @@
   <div class="page">
     <header class="topbar">
       <div class="logo-slot">LOGO</div>
+      <nav class="tabs" aria-label="Páginas do dashboard">
+        <button type="button" class="tab is-on" data-view="visao">Visão Geral</button>
+        <button type="button" class="tab" data-view="dist">Distribuição</button>
+        <button type="button" class="tab" data-view="mov">Movimentação / Permanência</button>
+      </nav>
       <div class="slicers">
         <label>Ano<select id="fAno"><option value="">Todos</option></select></label>
         <label>Mês<select id="fMes"><option value="">Todos</option></select></label>
@@ -24,197 +29,199 @@
       <button type="button" class="btn-more" id="btnMore">Filtros +</button>
     </header>
     <div class="more-box" id="moreBox" hidden>
-      Filtros e clique em Área/Turno atualizam KPIs e gráficos. No Power BI: cross-filter nativo.
+      Filtros valem nas 3 páginas. No Power BI o .pbix fica 100% editável (cores, títulos, medidas, layout) e a base fictícia é só para desenvolvimento.
     </div>
 
-    <p class="band">Indicadores principais</p>
-    <section class="kpis">
-      <article class="kpi">
-        <div class="ico">HC</div>
-        <div>
-          <div class="lbl">HC Total</div>
-          <div class="val" id="kHc">—</div>
-          <div class="trend">Headcount total</div>
-        </div>
-      </article>
-      <article class="kpi">
-        <div class="ico">PCD</div>
-        <div>
-          <div class="lbl">HC PCD</div>
-          <div class="val" id="kPcd">—</div>
-          <div class="trend">Colaboradores PCD</div>
-        </div>
-      </article>
-      <article class="kpi">
-        <div class="ico">%</div>
-        <div>
-          <div class="lbl">% PCD</div>
-          <div class="val" id="kPct">—</div>
-          <div class="trend">Sobre HC total</div>
-        </div>
-      </article>
-      <article class="kpi">
-        <div class="ico">M</div>
-        <div>
-          <div class="lbl">Meta PCD</div>
-          <div class="val" id="kMeta">—</div>
-          <div class="trend">Meta do período</div>
-        </div>
-      </article>
-      <article class="kpi">
-        <div class="ico">G</div>
-        <div>
-          <div class="lbl">GAP</div>
-          <div class="val" id="kGap">—</div>
-          <div class="trend" id="tGap">p.p. / qtd PCD</div>
-        </div>
-      </article>
-      <article class="kpi">
-        <div class="ico">L</div>
-        <div>
-          <div class="lbl">% PCD em liderança</div>
-          <div class="val" id="kLid">—</div>
-          <div class="trend" id="tLid">PCD líderes ÷ cargos de liderança</div>
-        </div>
-      </article>
-    </section>
-
-    <p class="band">Análises</p>
-    <section class="grid-2">
-      <article class="card">
-        <h2>Evolução da % PCD</h2>
-        <div class="chart-h mid"><canvas id="chartEvol"></canvas></div>
-      </article>
-      <article class="card">
-        <h2>Meta × Realizado</h2>
-        <div class="chart-h mid"><canvas id="chartMeta"></canvas></div>
-      </article>
-    </section>
-
-    <section class="grid-full">
-      <article class="card">
-        <h2>Admissões PCD × Desligamentos PCD</h2>
-        <div class="chart-h wide"><canvas id="chartMovMes"></canvas></div>
-      </article>
-    </section>
-
-    <section class="grid-2b">
-      <article class="card">
-        <h2>PCD por Área — HC × PCD</h2>
-        <div class="chart-h tall"><canvas id="chartArea"></canvas></div>
-      </article>
-      <article class="card">
-        <h2>Resumo por Área</h2>
-        <div class="table-scroll">
-          <table class="rank-table">
-            <thead>
-              <tr>
-                <th>Área</th>
-                <th>HC</th>
-                <th>PCD</th>
-                <th>% PCD</th>
-                <th>GAP</th>
-                <th>Adm.</th>
-                <th>Desl.</th>
-              </tr>
-            </thead>
-            <tbody id="areaBody"></tbody>
-          </table>
-        </div>
-      </article>
-    </section>
-
-    <p class="band">Detalhes</p>
-    <section class="kpis sm">
-      <article class="kpi">
-        <div>
-          <div class="lbl">Admissões PCD</div>
-          <div class="val sm" id="kAdm">—</div>
-          <div class="trend" id="tAdm">vs mês anterior</div>
-        </div>
-      </article>
-      <article class="kpi">
-        <div>
-          <div class="lbl">Desligamentos PCD</div>
-          <div class="val sm" id="kDes">—</div>
-          <div class="trend" id="tDes">vs mês anterior</div>
-        </div>
-      </article>
-      <article class="kpi">
-        <div>
-          <div class="lbl">Promoções PCD</div>
-          <div class="val sm" id="kPro">—</div>
-          <div class="trend">No período</div>
-        </div>
-      </article>
-      <article class="kpi">
-        <div>
-          <div class="lbl">Mov. Internas PCD</div>
-          <div class="val sm" id="kMov">—</div>
-          <div class="trend">No período</div>
-        </div>
-      </article>
-      <article class="kpi">
-        <div>
-          <div class="lbl">Turnover PCD</div>
-          <div class="val sm" id="kTurnP">—</div>
-          <div class="trend" id="tTurn">vs geral</div>
-        </div>
-      </article>
-      <article class="kpi">
-        <div>
-          <div class="lbl">Turnover Geral</div>
-          <div class="val sm" id="kTurnG">—</div>
-          <div class="trend">Quadro geral</div>
-        </div>
-      </article>
-    </section>
-
-    <section class="grid-4">
-      <article class="card">
-        <h2>Representatividade PCD sobre HC</h2>
-        <div class="chart-h"><canvas id="chartRep"></canvas></div>
-      </article>
-      <article class="card">
-        <h2>Distribuição de PCD por Área</h2>
-        <div class="chart-h"><canvas id="chartDist"></canvas></div>
-      </article>
-      <article class="card">
-        <h2>PCD por Tipo de Deficiência</h2>
-        <div class="donut-block">
-          <div class="donut-box">
-            <canvas id="chartTipo"></canvas>
-            <div class="donut-label"><strong id="tipoTotal">—</strong><span>PCD</span></div>
+    <section id="view-visao" class="view is-on">
+      <section class="kpis">
+        <article class="kpi">
+          <div class="ico">HC</div>
+          <div>
+            <div class="lbl">HC Total</div>
+            <div class="val" id="kHc">—</div>
+            <div class="trend">Headcount total</div>
           </div>
-          <ul class="leg" id="tipoLeg"></ul>
-        </div>
-      </article>
-      <article class="card">
-        <h2>PCD por Turno</h2>
-        <div class="chart-h"><canvas id="chartTurno"></canvas></div>
-      </article>
+        </article>
+        <article class="kpi">
+          <div class="ico">PCD</div>
+          <div>
+            <div class="lbl">HC PCD</div>
+            <div class="val" id="kPcd">—</div>
+            <div class="trend">Colaboradores PCD</div>
+          </div>
+        </article>
+        <article class="kpi">
+          <div class="ico">%</div>
+          <div>
+            <div class="lbl">% PCD</div>
+            <div class="val" id="kPct">—</div>
+            <div class="trend">Sobre HC total</div>
+          </div>
+        </article>
+        <article class="kpi">
+          <div class="ico">M</div>
+          <div>
+            <div class="lbl">Meta PCD</div>
+            <div class="val" id="kMeta">—</div>
+            <div class="trend">Meta do período</div>
+          </div>
+        </article>
+        <article class="kpi">
+          <div class="ico">G</div>
+          <div>
+            <div class="lbl">GAP</div>
+            <div class="val" id="kGap">—</div>
+            <div class="trend" id="tGap">p.p. / qtd PCD</div>
+          </div>
+        </article>
+        <article class="kpi">
+          <div class="ico">L</div>
+          <div>
+            <div class="lbl">% PCD em liderança</div>
+            <div class="val" id="kLid">—</div>
+            <div class="trend" id="tLid">PCD líderes ÷ cargos de liderança</div>
+          </div>
+        </article>
+      </section>
+
+      <section class="grid-2">
+        <article class="card">
+          <h2>Evolução da % PCD</h2>
+          <div class="chart-h mid"><canvas id="chartEvol"></canvas></div>
+        </article>
+        <article class="card">
+          <h2>Meta × Realizado</h2>
+          <div class="chart-h mid"><canvas id="chartMeta"></canvas></div>
+        </article>
+      </section>
+
+      <section class="grid-full">
+        <article class="card insights">
+          <h2>Principais Destaques</h2>
+          <ul id="insightList"></ul>
+        </article>
+      </section>
     </section>
 
-    <section class="grid-3">
-      <article class="card">
-        <h2>Tempo de Empresa — PCD</h2>
-        <div class="chart-h"><canvas id="chartTenure"></canvas></div>
-      </article>
-      <article class="card">
-        <h2>Blue Collar × White Collar</h2>
-        <div class="chart-h"><canvas id="chartClass"></canvas></div>
-      </article>
-      <article class="card">
-        <h2>Turnover PCD × Geral</h2>
-        <div class="chart-h"><canvas id="chartTurnover"></canvas></div>
-      </article>
+    <section id="view-dist" class="view">
+      <section class="grid-2b">
+        <article class="card">
+          <h2>PCD por Área — HC × PCD</h2>
+          <div class="chart-h tall"><canvas id="chartArea"></canvas></div>
+        </article>
+        <article class="card">
+          <h2>Resumo por Área</h2>
+          <div class="table-scroll">
+            <table class="rank-table">
+              <thead>
+                <tr>
+                  <th>Área</th>
+                  <th>HC</th>
+                  <th>PCD</th>
+                  <th>% PCD</th>
+                  <th>GAP</th>
+                  <th>Adm.</th>
+                  <th>Desl.</th>
+                </tr>
+              </thead>
+              <tbody id="areaBody"></tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+      <section class="grid-3">
+        <article class="card">
+          <h2>Representatividade PCD sobre HC</h2>
+          <div class="chart-h"><canvas id="chartRep"></canvas></div>
+        </article>
+        <article class="card">
+          <h2>Distribuição de PCD por Área</h2>
+          <div class="chart-h"><canvas id="chartDist"></canvas></div>
+        </article>
+        <article class="card">
+          <h2>PCD por Tipo de Deficiência</h2>
+          <div class="donut-block">
+            <div class="donut-box">
+              <canvas id="chartTipo"></canvas>
+              <div class="donut-label"><strong id="tipoTotal">—</strong><span>PCD</span></div>
+            </div>
+            <ul class="leg" id="tipoLeg"></ul>
+          </div>
+        </article>
+      </section>
+      <section class="grid-2">
+        <article class="card">
+          <h2>PCD por Turno</h2>
+          <div class="chart-h"><canvas id="chartTurno"></canvas></div>
+        </article>
+        <article class="card">
+          <h2>Blue Collar × White Collar</h2>
+          <div class="chart-h"><canvas id="chartClass"></canvas></div>
+        </article>
+      </section>
     </section>
 
-    <section class="grid-full">
-      <article class="card insights">
-        <h2>Principais Destaques</h2>
-        <ul id="insightList"></ul>
-      </article>
+    <section id="view-mov" class="view">
+      <section class="kpis sm">
+        <article class="kpi">
+          <div>
+            <div class="lbl">Admissões PCD</div>
+            <div class="val sm" id="kAdm">—</div>
+            <div class="trend" id="tAdm">vs mês anterior</div>
+          </div>
+        </article>
+        <article class="kpi">
+          <div>
+            <div class="lbl">Desligamentos PCD</div>
+            <div class="val sm" id="kDes">—</div>
+            <div class="trend" id="tDes">vs mês anterior</div>
+          </div>
+        </article>
+        <article class="kpi">
+          <div>
+            <div class="lbl">Promoções PCD</div>
+            <div class="val sm" id="kPro">—</div>
+            <div class="trend">No período</div>
+          </div>
+        </article>
+        <article class="kpi">
+          <div>
+            <div class="lbl">Mov. Internas PCD</div>
+            <div class="val sm" id="kMov">—</div>
+            <div class="trend">No período</div>
+          </div>
+        </article>
+        <article class="kpi">
+          <div>
+            <div class="lbl">Turnover PCD</div>
+            <div class="val sm" id="kTurnP">—</div>
+            <div class="trend" id="tTurn">vs geral</div>
+          </div>
+        </article>
+        <article class="kpi">
+          <div>
+            <div class="lbl">Turnover Geral</div>
+            <div class="val sm" id="kTurnG">—</div>
+            <div class="trend">Quadro geral</div>
+          </div>
+        </article>
+      </section>
+      <section class="grid-full">
+        <article class="card">
+          <h2>Admissões PCD × Desligamentos PCD</h2>
+          <div class="chart-h wide"><canvas id="chartMovMes"></canvas></div>
+        </article>
+      </section>
+      <section class="grid-2">
+        <article class="card">
+          <h2>Tempo de Empresa — PCD</h2>
+          <div class="chart-h"><canvas id="chartTenure"></canvas></div>
+        </article>
+        <article class="card">
+          <h2>Turnover PCD × Geral</h2>
+          <div class="chart-h"><canvas id="chartTurnover"></canvas></div>
+        </article>
+      </section>
     </section>
   </div>
   <script src="app.js"></script>

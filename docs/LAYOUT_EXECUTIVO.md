@@ -1,7 +1,8 @@
 # Layout executivo — PCD Workforce & Inclusion
 
-Referência visual: protótipo azul corporativo (leitura multinacional / gerencial).  
-Canvas sugerido: **1920 × 1080** (1 página principal). Tema: azul `#0B3A5B` / `#1B6CA8` / `#E8F2FA` / branco.
+Referência visual: protótipo azul corporativo, leitura em **notebook**.  
+**3 páginas** no Power BI (não tudo em uma tela): Visão Geral · Distribuição · Movimentação/Permanência.  
+Canvas 16:9; tema branco + azul. Arquivo 100% editável. Dados fictícios só no desenvolvimento.
 
 ## Hierarquia (primeiro olhar → detalhe)
 

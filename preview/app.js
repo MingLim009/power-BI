@@ -523,6 +523,15 @@ async function boot() {
     const box = document.getElementById("moreBox");
     box.hidden = !box.hidden;
   };
+  document.querySelectorAll(".tab").forEach((btn) => {
+    btn.onclick = () => {
+      document.querySelectorAll(".tab").forEach((b) => b.classList.toggle("is-on", b === btn));
+      document.querySelectorAll(".view").forEach((v) => {
+        v.classList.toggle("is-on", v.id === `view-${btn.dataset.view}`);
+      });
+      Object.values(charts).forEach((c) => c.resize());
+    };
+  });
   render();
 }
 
