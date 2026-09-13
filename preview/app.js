@@ -1,7 +1,7 @@
 const fmtPct = (v) => `${(v * 100).toFixed(1).replace(".", ",")}%`;
 const fmtInt = (v) => new Intl.NumberFormat("pt-BR").format(v);
 const fmtSigned = (v) => `${v > 0 ? "+" : ""}${fmtInt(v)}`;
-const C = ["#0b3a5b", "#1b6ca8", "#3d8fc9", "#9ec4e4", "#e67e22", "#5d6d7e", "#1e8449", "#7d3c98", "#16a085"];
+const C = ["#0b3a5b", "#1b6ca8", "#3d8fc9", "#5dade2", "#9ec4e4", "#c5dced", "#7f8c9b"];
 const tick = { color: "#102033", font: { family: "Inter", size: 11, weight: "700" } };
 const grid = "#e8eef5";
 const META = 0.05;
@@ -451,7 +451,7 @@ function paintCharts(data) {
         {
           label: "Meta",
           data: data.evolucao.map((e) => +(e.meta * 100).toFixed(2)),
-          borderColor: "#e67e22",
+          borderColor: "#5dade2",
           borderDash: [6, 4],
           pointRadius: 0,
           borderWidth: 2,

@@ -56,7 +56,7 @@ Usar **Bookmarks** + botão para abrir/fechar o painel lateral (padrão executiv
 - Cards: branco, cantos 8px, sombra suave
 - Sem poluição: **máx. 1 título curto por visual**
 - Tipografia: Segoe UI / DIN (tema JSON)
-- Cores sequenciais azul; GAP negativo em `#C0392B`; positivo `#1E8449`
+- Paleta: **azul** (padrão). **Verde** só meta/resultado positivo. **Vermelho** só GAP negativo ou crítico.
 
 ## Tema JSON (cores)
 
