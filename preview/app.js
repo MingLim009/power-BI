@@ -1,13 +1,15 @@
 const fmtPct = (v) => `${(v * 100).toFixed(1).replace(".", ",")}%`;
 const fmtInt = (v) => new Intl.NumberFormat("pt-BR").format(v);
-const C = ["#0b2f4d", "#1a6fb3", "#3d8fc9", "#9ec4e4", "#e67e22", "#5d6d7e"];
+const fmtSigned = (v) => `${v > 0 ? "+" : ""}${fmtInt(v)}`;
+const C = ["#0b2f4d", "#1a6fb3", "#3d8fc9", "#9ec4e4", "#e67e22", "#5d6d7e", "#1b7a42", "#7d3c98", "#16a085"];
 const tick = { color: "#0f1c2a", font: { family: "Inter", size: 11, weight: "700" } };
 
 async function boot() {
   const data = await (await fetch("data.json")).json();
   fillFilters(data);
   paintKpis(data.kpis);
-  paintRanking(data.ranking);
+  paintTable(data.areas);
+  paintInsights(data.insights);
   paintCharts(data);
   document.getElementById("btnMore").onclick = () => {
     const box = document.getElementById("moreBox");
@@ -22,7 +24,7 @@ function fillFilters(data) {
   };
   add("fPlanta", data.filtros.plantas);
   add("fDiretoria", data.filtros.diretorias);
-  add("fOficina", data.filtros.oficinas);
+  add("fArea", data.filtros.areas);
   add("fTurno", data.filtros.turnos);
   add("fMes", data.filtros.meses);
   [...new Set(data.evolucao.map((e) => e.anoMes.slice(0, 4)))].forEach((y) => {
@@ -35,158 +37,129 @@ function paintKpis(k) {
   document.getElementById("kPcd").textContent = fmtInt(k.hcPcd);
   document.getElementById("kPct").textContent = fmtPct(k.pctPcd);
   document.getElementById("kMeta").textContent = fmtPct(k.meta);
+
   const gap = document.getElementById("kGap");
-  gap.textContent = fmtPct(k.gap);
-  gap.className = `val ${k.gap < 0 ? "neg" : "pos"}`;
-  document.getElementById("kLid").textContent = fmtPct(k.pctLideranca);
+  gap.textContent = fmtPct(k.gapPp);
+  gap.className = `val ${k.gapPp < 0 ? "neg" : "pos"}`;
+  const tGap = document.getElementById("tGap");
+  const qtd = Math.abs(Math.round(k.gapQtd));
+  tGap.textContent =
+    k.gapQtd > 0 ? `Faltam ~${qtd} PCD` : k.gapQtd < 0 ? `Excedente ~${qtd} PCD` : "Na meta";
+  tGap.className = `trend ${k.gapPp < 0 ? "neg" : "pos"}`;
 
-  const tPct = document.getElementById("tPct");
-  tPct.textContent = k.gap < 0 ? `${fmtPct(k.gap)} vs meta` : `+${fmtPct(k.gap)} vs meta`;
-  tPct.className = `trend ${k.gap < 0 ? "neg" : "pos"}`;
-  document.getElementById("tGap").textContent = k.gap < 0 ? "Abaixo da meta" : "Acima da meta";
-  document.getElementById("tGap").className = `trend ${k.gap < 0 ? "neg" : "pos"}`;
+  document.getElementById("kLid").textContent = fmtPct(k.pctLiderancaSobrePcd);
+  document.getElementById("tLid").textContent = `${k.liderPcd} de ${k.hcPcd} PCD`;
 
-  document.getElementById("sAdm").textContent = fmtInt(k.admissoes);
-  document.getElementById("sDes").textContent = fmtInt(k.desligamentos);
-  document.getElementById("sPro").textContent = fmtInt(k.promocoes);
-  document.getElementById("sMov").textContent = fmtInt(k.movInternas);
-  document.getElementById("sSaldo").textContent = fmtInt(k.saldo);
-  document.getElementById("sTen").textContent = `${k.tenureYears.toFixed(1).replace(".", ",")} anos`;
-  document.getElementById("sBw").textContent = `${fmtPct(k.pctBlue)} / ${fmtPct(k.pctWhite)}`;
-  document.getElementById("sOfi").textContent = fmtInt(k.qtdOficinas);
+  document.getElementById("kAdm").textContent = fmtInt(k.admissoes);
+  document.getElementById("kDes").textContent = fmtInt(k.desligamentos);
+  document.getElementById("kPro").textContent = fmtInt(k.promocoes);
+  document.getElementById("kMov").textContent = fmtInt(k.movInternas);
+  document.getElementById("kTurnP").textContent = fmtPct(k.turnoverPcd);
+  document.getElementById("kTurnG").textContent = fmtPct(k.turnoverGeral);
+
+  const tAdm = document.getElementById("tAdm");
+  tAdm.textContent = `Mês: ${fmtInt(k.admissoesMes)} (${fmtSigned(k.admissoesVsAnt)})`;
+  tAdm.className = `trend ${k.admissoesVsAnt >= 0 ? "pos" : "neg"}`;
+  const tDes = document.getElementById("tDes");
+  tDes.textContent = `Mês: ${fmtInt(k.desligamentosMes)} (${fmtSigned(k.desligamentosVsAnt)})`;
+  tDes.className = `trend ${k.desligamentosVsAnt <= 0 ? "pos" : "neg"}`;
+  document.getElementById("tTurn").textContent = `Geral ${fmtPct(k.turnoverGeral)}`;
 }
 
-function paintRanking(rows) {
-  const max = Math.max(...rows.map((r) => r.hcPcd), 1);
-  document.getElementById("rankBody").innerHTML = rows
+function paintTable(rows) {
+  document.getElementById("areaBody").innerHTML = rows
     .map((r) => {
-      const gapCls = r.gap < 0 ? "gap-neg" : "gap-pos";
-      const name = r.oficina;
+      const g = r.gap < 0 ? "gap-neg" : "gap-pos";
       return `<tr>
-        <td>${r.rank}</td>
-        <td class="name" title="${r.oficina}">${name}</td>
+        <td>${r.area}</td>
         <td>${fmtInt(r.hc)}</td>
         <td>${fmtInt(r.hcPcd)}</td>
         <td>${fmtPct(r.pct)}</td>
-        <td class="${gapCls}">${fmtPct(r.gap)}</td>
-        <td><div class="bar"><i style="width:${(r.hcPcd / max) * 100}%"></i></div></td>
+        <td class="${g}">${fmtPct(r.gap)}</td>
+        <td>${fmtInt(r.admissoes)}</td>
+        <td>${fmtInt(r.desligamentos)}</td>
       </tr>`;
     })
     .join("");
 }
 
+function paintInsights(list) {
+  document.getElementById("insightList").innerHTML = list.map((t) => `<li>${t}</li>`).join("");
+}
+
 function paintCharts(data) {
-  const labels = data.evolucao.map((e) => e.anoMes.slice(5) + "/" + e.anoMes.slice(2, 4));
+  const labelsE = data.evolucao.map((e) => e.anoMes.slice(5) + "/" + e.anoMes.slice(2, 4));
 
-  // Combo: bars HC PCD + line % PCD
-  new Chart(document.getElementById("chartCombo"), {
-    type: "bar",
-    data: {
-      labels,
-      datasets: [
-        {
-          type: "bar",
-          label: "HC PCD",
-          data: data.evolucao.map((e) => e.hcPcd),
-          backgroundColor: "#9ec4e4",
-          borderRadius: 3,
-          yAxisID: "y",
-          order: 2,
-        },
-        {
-          type: "line",
-          label: "% PCD",
-          data: data.evolucao.map((e) => +(e.pct * 100).toFixed(2)),
-          borderColor: "#0b2f4d",
-          backgroundColor: "#0b2f4d",
-          tension: 0.35,
-          pointRadius: 0,
-          borderWidth: 2.5,
-          yAxisID: "y1",
-          order: 1,
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: { legend: { labels: { ...tick, boxWidth: 10 } } },
-      scales: {
-        x: { ticks: { ...tick, maxTicksLimit: 10 }, grid: { display: false } },
-        y: { position: "left", ticks: tick, grid: { color: "#e8eef5" }, title: { display: true, text: "HC PCD", color: "#31465c", font: { weight: "700", size: 11 } } },
-        y1: { position: "right", ticks: { ...tick, callback: (v) => v + "%" }, grid: { drawOnChartArea: false }, min: 0, title: { display: true, text: "% PCD", color: "#31465c", font: { weight: "700", size: 11 } } },
-      },
-    },
-  });
-
-  // Tipo donut
-  const total = data.tipos.reduce((s, t) => s + t.n, 0) || 1;
-  document.getElementById("tipoTotal").textContent = fmtInt(total);
-  document.getElementById("tipoLeg").innerHTML = data.tipos
-    .map(
-      (t, i) => `<li><span class="sw" style="background:${C[i % C.length]}"></span><span>${t.tipo}</span><b>${((t.n / total) * 100).toFixed(1).replace(".", ",")}%</b></li>`
-    )
-    .join("");
-  new Chart(document.getElementById("chartTipo"), {
+  // Representatividade PCD x Não PCD
+  new Chart(document.getElementById("chartRep"), {
     type: "doughnut",
     data: {
-      labels: data.tipos.map((t) => t.tipo),
-      datasets: [{ data: data.tipos.map((t) => t.n), backgroundColor: C, borderWidth: 0, cutout: "68%" }],
-    },
-    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } },
-  });
-
-  // TURNO — pedido do cliente
-  new Chart(document.getElementById("chartTurno"), {
-    type: "bar",
-    data: {
-      labels: data.turnos.map((t) => t.turno),
-      datasets: [
-        { label: "HC Total", data: data.turnos.map((t) => t.hc), backgroundColor: "#9ec4e4", borderRadius: 4 },
-        { label: "HC PCD", data: data.turnos.map((t) => t.hcPcd), backgroundColor: "#0b2f4d", borderRadius: 4 },
-      ],
+      labels: data.representatividade.map((r) => r.nome),
+      datasets: [{ data: data.representatividade.map((r) => r.n), backgroundColor: ["#0b2f4d", "#9ec4e4"], borderWidth: 0, cutout: "62%" }],
     },
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      plugins: { legend: { labels: { ...tick, boxWidth: 10 } } },
-      scales: {
-        x: { ticks: tick, grid: { display: false } },
-        y: { ticks: tick, grid: { color: "#e8eef5" }, beginAtZero: true },
-      },
+      plugins: { legend: { position: "bottom", labels: { ...tick, boxWidth: 10 } } },
     },
   });
 
-  // Mov oficinas
-  const short = (s) => s;
-  new Chart(document.getElementById("chartMov"), {
-    type: "bar",
+  // Evolução % PCD
+  new Chart(document.getElementById("chartEvol"), {
+    type: "line",
     data: {
-      labels: data.movOficina.map((m) => short(m.oficina)),
-      datasets: [
-        { label: "Admissões", data: data.movOficina.map((m) => m.admissao), backgroundColor: "#1a6fb3", borderRadius: 3 },
-        { label: "Desligamentos", data: data.movOficina.map((m) => m.desligamento), backgroundColor: "#e67e22", borderRadius: 3 },
-      ],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: { legend: { labels: { ...tick, boxWidth: 10 } } },
-      scales: {
-        x: { ticks: { ...tick, maxRotation: 40 }, grid: { display: false } },
-        y: { ticks: tick, grid: { color: "#e8eef5" }, beginAtZero: true },
-      },
-    },
-  });
-
-  // Planta % — horizontal
-  new Chart(document.getElementById("chartPlanta"), {
-    type: "bar",
-    data: {
-      labels: data.plantas.map((p) => p.planta.replace("Planta ", "")),
+      labels: labelsE,
       datasets: [{
         label: "% PCD",
-        data: data.plantas.map((p) => +(p.pct * 100).toFixed(2)),
+        data: data.evolucao.map((e) => +(e.pct * 100).toFixed(2)),
+        borderColor: "#1a6fb3",
+        backgroundColor: "rgba(26,111,179,0.18)",
+        fill: true,
+        tension: 0.4,
+        pointRadius: 0,
+        borderWidth: 2.5,
+      }],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { ticks: { ...tick, maxTicksLimit: 10 }, grid: { display: false } },
+        y: { ticks: { ...tick, callback: (v) => v + "%" }, grid: { color: "#e8eef5" } },
+      },
+    },
+  });
+
+  // PCD por Área HC x PCD
+  new Chart(document.getElementById("chartArea"), {
+    type: "bar",
+    data: {
+      labels: data.areas.map((a) => a.area),
+      datasets: [
+        { label: "HC", data: data.areas.map((a) => a.hc), backgroundColor: "#9ec4e4", borderRadius: 3 },
+        { label: "PCD", data: data.areas.map((a) => a.hcPcd), backgroundColor: "#0b2f4d", borderRadius: 3 },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { labels: { ...tick, boxWidth: 10 } } },
+      scales: {
+        x: { ticks: { ...tick, maxRotation: 40, font: { ...tick.font, size: 10 } }, grid: { display: false } },
+        y: { ticks: tick, grid: { color: "#e8eef5" }, beginAtZero: true },
+      },
+    },
+  });
+
+  // Distribuição PCD por área (share)
+  new Chart(document.getElementById("chartDist"), {
+    type: "bar",
+    data: {
+      labels: data.areas.map((a) => a.area),
+      datasets: [{
+        label: "% do PCD",
+        data: data.areas.map((a) => +(a.sharePcd * 100).toFixed(1)),
         backgroundColor: "#1a6fb3",
         borderRadius: 4,
       }],
@@ -198,26 +171,114 @@ function paintCharts(data) {
       plugins: { legend: { display: false } },
       scales: {
         x: { ticks: { ...tick, callback: (v) => v + "%" }, grid: { color: "#e8eef5" } },
-        y: { ticks: tick, grid: { display: false } },
+        y: { ticks: { ...tick, font: { ...tick.font, size: 10 } }, grid: { display: false } },
       },
     },
   });
 
-  // Classificação
-  new Chart(document.getElementById("chartClass"), {
+  // Tipo deficiência
+  const total = data.tipos.reduce((s, t) => s + t.n, 0) || 1;
+  document.getElementById("tipoTotal").textContent = fmtInt(total);
+  document.getElementById("tipoLeg").innerHTML = data.tipos
+    .map((t, i) => `<li><span class="sw" style="background:${C[i % C.length]}"></span><span>${t.tipo}</span><b>${((t.n / total) * 100).toFixed(0)}%</b></li>`)
+    .join("");
+  new Chart(document.getElementById("chartTipo"), {
+    type: "doughnut",
+    data: {
+      labels: data.tipos.map((t) => t.tipo),
+      datasets: [{ data: data.tipos.map((t) => t.n), backgroundColor: C, borderWidth: 0, cutout: "68%" }],
+    },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } },
+  });
+
+  // Turno
+  new Chart(document.getElementById("chartTurno"), {
     type: "bar",
     data: {
-      labels: data.classificacao.map((c) => c.nome),
-      datasets: [{ data: data.classificacao.map((c) => c.n), backgroundColor: ["#0b2f4d", "#3d8fc9"], borderRadius: 6, barThickness: 26 }],
+      labels: data.turnos.map((t) => t.turno),
+      datasets: [
+        { label: "HC", data: data.turnos.map((t) => t.hc), backgroundColor: "#9ec4e4", borderRadius: 4 },
+        { label: "PCD", data: data.turnos.map((t) => t.hcPcd), backgroundColor: "#0b2f4d", borderRadius: 4 },
+      ],
     },
     options: {
-      indexAxis: "y",
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { labels: { ...tick, boxWidth: 10 } } },
+      scales: {
+        x: { ticks: { ...tick, font: { ...tick.font, size: 10 } }, grid: { display: false } },
+        y: { ticks: tick, grid: { color: "#e8eef5" }, beginAtZero: true },
+      },
+    },
+  });
+
+  // Tenure
+  new Chart(document.getElementById("chartTenure"), {
+    type: "bar",
+    data: {
+      labels: data.tenure.map((t) => t.faixa),
+      datasets: [{ label: "PCD", data: data.tenure.map((t) => t.n), backgroundColor: "#3d8fc9", borderRadius: 4 }],
+    },
+    options: {
       responsive: true,
       maintainAspectRatio: false,
       plugins: { legend: { display: false } },
       scales: {
-        x: { ticks: tick, grid: { color: "#e8eef5" } },
-        y: { ticks: tick, grid: { display: false } },
+        x: { ticks: tick, grid: { display: false } },
+        y: { ticks: tick, grid: { color: "#e8eef5" }, beginAtZero: true },
+      },
+    },
+  });
+
+  // Mov mensal
+  const lm = data.movMensal.slice(-18);
+  new Chart(document.getElementById("chartMovMes"), {
+    type: "bar",
+    data: {
+      labels: lm.map((m) => m.anoMes.slice(5) + "/" + m.anoMes.slice(2, 4)),
+      datasets: [
+        { label: "Admissões", data: lm.map((m) => m.admissoes), backgroundColor: "#1b7a42", borderRadius: 3 },
+        { label: "Desligamentos", data: lm.map((m) => m.desligamentos), backgroundColor: "#e67e22", borderRadius: 3 },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { labels: { ...tick, boxWidth: 10 } } },
+      scales: {
+        x: { ticks: { ...tick, maxTicksLimit: 8 }, grid: { display: false } },
+        y: { ticks: tick, grid: { color: "#e8eef5" }, beginAtZero: true },
+      },
+    },
+  });
+
+  // Blue x White — HC e PCD grouped
+  new Chart(document.getElementById("chartClass"), {
+    type: "bar",
+    data: {
+      labels: data.classificacao.map((c) => c.nome),
+      datasets: [
+        { label: "HC", data: data.classificacao.map((c) => c.hc), backgroundColor: "#9ec4e4", borderRadius: 4 },
+        { label: "PCD", data: data.classificacao.map((c) => c.hcPcd), backgroundColor: "#0b2f4d", borderRadius: 4 },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { labels: { ...tick, boxWidth: 10 } },
+        tooltip: {
+          callbacks: {
+            afterBody: (items) => {
+              const i = items[0].dataIndex;
+              return `% PCD: ${fmtPct(data.classificacao[i].pct)}`;
+            },
+          },
+        },
+      },
+      scales: {
+        x: { ticks: tick, grid: { display: false } },
+        y: { ticks: tick, grid: { color: "#e8eef5" }, beginAtZero: true },
       },
     },
   });
@@ -226,7 +287,7 @@ function paintCharts(data) {
   new Chart(document.getElementById("chartMeta"), {
     type: "line",
     data: {
-      labels,
+      labels: labelsE,
       datasets: [
         {
           label: "Realizado",
@@ -258,8 +319,32 @@ function paintCharts(data) {
       },
     },
   });
+
+  // Turnover
+  new Chart(document.getElementById("chartTurnover"), {
+    type: "bar",
+    data: {
+      labels: data.turnover.map((t) => t.nome),
+      datasets: [{
+        label: "Taxa",
+        data: data.turnover.map((t) => +(t.taxa * 100).toFixed(2)),
+        backgroundColor: ["#0b2f4d", "#3d8fc9"],
+        borderRadius: 6,
+        barThickness: 48,
+      }],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { ticks: tick, grid: { display: false } },
+        y: { ticks: { ...tick, callback: (v) => v + "%" }, grid: { color: "#e8eef5" }, beginAtZero: true },
+      },
+    },
+  });
 }
 
 boot().catch((e) => {
-  document.body.innerHTML = `<p style="padding:24px;font-family:Inter,sans-serif;font-weight:800">Erro ao carregar data.json<br>${e}</p>`;
+  document.body.innerHTML = `<p style="padding:24px;font-family:Inter,sans-serif;font-weight:800">Erro data.json<br>${e}</p>`;
 });

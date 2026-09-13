@@ -2,167 +2,129 @@
   "kpis": {
     "hcTotal": 1103,
     "hcPcd": 50,
+    "hcNaoPcd": 1053,
     "pctPcd": 0.0453,
     "meta": 0.05,
-    "gap": -0.0047,
+    "gapPp": -0.0047,
+    "gapQtd": 5.2,
     "admissoes": 53,
     "desligamentos": 3,
     "promocoes": 1,
     "movInternas": 6,
-    "saldo": 50,
+    "admissoesMes": 1,
+    "desligamentosMes": 1,
+    "admissoesVsAnt": 0,
+    "desligamentosVsAnt": 1,
+    "turnoverPcd": 0.06,
+    "turnoverGeral": 0.0879,
     "tenureYears": 4.45,
-    "pctLideranca": 0.14,
-    "pctBlue": 0.62,
-    "pctWhite": 0.38,
-    "qtdOficinas": 9,
-    "atingimentoMeta": 0.9066
+    "pctLiderancaSobrePcd": 0.14,
+    "pctPcdEmLideranca": 0.0363,
+    "liderPcd": 7,
+    "liderTotal": 193,
+    "qtdAreas": 9,
+    "noteHc": "HC Total: no .pbix o valor exato pode ser fixado/ajustado na medida."
   },
-  "oficinas": [
+  "representatividade": [
     {
-      "oficina": "Pintura",
-      "hc": 129,
-      "hcPcd": 9,
-      "pct": 0.0698,
-      "gap": 0.0198
+      "nome": "PCD",
+      "n": 50
     },
     {
-      "oficina": "Prensa",
-      "hc": 134,
-      "hcPcd": 8,
-      "pct": 0.0597,
-      "gap": 0.0097
-    },
-    {
-      "oficina": "Supply Chain",
-      "hc": 116,
-      "hcPcd": 6,
-      "pct": 0.0517,
-      "gap": 0.0017
-    },
-    {
-      "oficina": "Qualidade",
-      "hc": 124,
-      "hcPcd": 6,
-      "pct": 0.0484,
-      "gap": -0.0016
-    },
-    {
-      "oficina": "General Service",
-      "hc": 128,
-      "hcPcd": 6,
-      "pct": 0.0469,
-      "gap": -0.0031
-    },
-    {
-      "oficina": "Montagem",
-      "hc": 106,
-      "hcPcd": 4,
-      "pct": 0.0377,
-      "gap": -0.0123
-    },
-    {
-      "oficina": "Logística",
-      "hc": 121,
-      "hcPcd": 4,
-      "pct": 0.0331,
-      "gap": -0.0169
-    },
-    {
-      "oficina": "Funilaria",
-      "hc": 140,
-      "hcPcd": 4,
-      "pct": 0.0286,
-      "gap": -0.0214
-    },
-    {
-      "oficina": "Staff e Outras",
-      "hc": 105,
-      "hcPcd": 3,
-      "pct": 0.0286,
-      "gap": -0.0214
+      "nome": "Não PCD",
+      "n": 1053
     }
   ],
-  "ranking": [
+  "areas": [
     {
-      "rank": 1,
-      "oficina": "Pintura",
-      "hc": 129,
-      "hcPcd": 9,
-      "pct": 0.0698,
-      "gap": 0.0198,
-      "meta": 0.05
-    },
-    {
-      "rank": 2,
-      "oficina": "Prensa",
-      "hc": 134,
-      "hcPcd": 8,
-      "pct": 0.0597,
-      "gap": 0.0097,
-      "meta": 0.05
-    },
-    {
-      "rank": 3,
-      "oficina": "Supply Chain",
-      "hc": 116,
-      "hcPcd": 6,
-      "pct": 0.0517,
-      "gap": 0.0017,
-      "meta": 0.05
-    },
-    {
-      "rank": 4,
-      "oficina": "Qualidade",
-      "hc": 124,
-      "hcPcd": 6,
-      "pct": 0.0484,
-      "gap": -0.0016,
-      "meta": 0.05
-    },
-    {
-      "rank": 5,
-      "oficina": "General Service",
-      "hc": 128,
-      "hcPcd": 6,
-      "pct": 0.0469,
-      "gap": -0.0031,
-      "meta": 0.05
-    },
-    {
-      "rank": 6,
-      "oficina": "Montagem",
+      "area": "Montagem",
       "hc": 106,
       "hcPcd": 4,
       "pct": 0.0377,
       "gap": -0.0123,
-      "meta": 0.05
+      "admissoes": 4,
+      "desligamentos": 0,
+      "sharePcd": 0.08
     },
     {
-      "rank": 7,
-      "oficina": "Logística",
+      "area": "Qualidade",
+      "hc": 124,
+      "hcPcd": 6,
+      "pct": 0.0484,
+      "gap": -0.0016,
+      "admissoes": 6,
+      "desligamentos": 0,
+      "sharePcd": 0.12
+    },
+    {
+      "area": "Pintura",
+      "hc": 129,
+      "hcPcd": 9,
+      "pct": 0.0698,
+      "gap": 0.0198,
+      "admissoes": 9,
+      "desligamentos": 0,
+      "sharePcd": 0.18
+    },
+    {
+      "area": "Logística",
       "hc": 121,
       "hcPcd": 4,
       "pct": 0.0331,
       "gap": -0.0169,
-      "meta": 0.05
+      "admissoes": 5,
+      "desligamentos": 1,
+      "sharePcd": 0.08
     },
     {
-      "rank": 8,
-      "oficina": "Funilaria",
+      "area": "Funilaria",
       "hc": 140,
       "hcPcd": 4,
       "pct": 0.0286,
       "gap": -0.0214,
-      "meta": 0.05
+      "admissoes": 5,
+      "desligamentos": 1,
+      "sharePcd": 0.08
     },
     {
-      "rank": 9,
-      "oficina": "Staff e Outras",
+      "area": "Supply Chain",
+      "hc": 116,
+      "hcPcd": 6,
+      "pct": 0.0517,
+      "gap": 0.0017,
+      "admissoes": 6,
+      "desligamentos": 0,
+      "sharePcd": 0.12
+    },
+    {
+      "area": "Prensa",
+      "hc": 134,
+      "hcPcd": 8,
+      "pct": 0.0597,
+      "gap": 0.0097,
+      "admissoes": 8,
+      "desligamentos": 0,
+      "sharePcd": 0.16
+    },
+    {
+      "area": "General Service",
+      "hc": 128,
+      "hcPcd": 6,
+      "pct": 0.0469,
+      "gap": -0.0031,
+      "admissoes": 7,
+      "desligamentos": 1,
+      "sharePcd": 0.12
+    },
+    {
+      "area": "Staff e Outras",
       "hc": 105,
       "hcPcd": 3,
       "pct": 0.0286,
       "gap": -0.0214,
-      "meta": 0.05
+      "admissoes": 3,
+      "desligamentos": 0,
+      "sharePcd": 0.06
     }
   ],
   "turnos": [
@@ -170,51 +132,29 @@
       "turno": "1º Turno",
       "hc": 260,
       "hcPcd": 17,
-      "pct": 0.0654
+      "pct": 0.0654,
+      "sharePcd": 0.34
     },
     {
       "turno": "2º Turno",
       "hc": 251,
       "hcPcd": 11,
-      "pct": 0.0438
+      "pct": 0.0438,
+      "sharePcd": 0.22
     },
     {
       "turno": "3º Turno",
       "hc": 148,
       "hcPcd": 5,
-      "pct": 0.0338
+      "pct": 0.0338,
+      "sharePcd": 0.1
     },
     {
       "turno": "Administrativo",
       "hc": 444,
       "hcPcd": 17,
-      "pct": 0.0383
-    }
-  ],
-  "plantas": [
-    {
-      "planta": "Planta Leste",
-      "hc": 240,
-      "hcPcd": 9,
-      "pct": 0.0375
-    },
-    {
-      "planta": "Planta Norte",
-      "hc": 288,
-      "hcPcd": 20,
-      "pct": 0.0694
-    },
-    {
-      "planta": "Planta Oeste",
-      "hc": 311,
-      "hcPcd": 11,
-      "pct": 0.0354
-    },
-    {
-      "planta": "Planta Sul",
-      "hc": 264,
-      "hcPcd": 10,
-      "pct": 0.0379
+      "pct": 0.0383,
+      "sharePcd": 0.34
     }
   ],
   "tipos": [
@@ -239,61 +179,263 @@
       "n": 7
     }
   ],
+  "tenure": [
+    {
+      "faixa": "<1 ano",
+      "n": 3
+    },
+    {
+      "faixa": "1–3 anos",
+      "n": 11
+    },
+    {
+      "faixa": "3–5 anos",
+      "n": 14
+    },
+    {
+      "faixa": ">5 anos",
+      "n": 22
+    }
+  ],
   "classificacao": [
     {
       "nome": "Blue Collar",
-      "n": 31
+      "hc": 618,
+      "hcPcd": 31,
+      "pct": 0.0502
     },
     {
       "nome": "White Collar",
-      "n": 19
+      "hc": 485,
+      "hcPcd": 19,
+      "pct": 0.0392
     }
   ],
-  "movOficina": [
+  "turnover": [
     {
-      "oficina": "Funilaria",
-      "admissao": 5,
-      "desligamento": 1
+      "nome": "PCD",
+      "taxa": 0.06
     },
     {
-      "oficina": "General Service",
-      "admissao": 7,
-      "desligamento": 1
+      "nome": "Geral",
+      "taxa": 0.0879
+    }
+  ],
+  "movMensal": [
+    {
+      "anoMes": "2018-09",
+      "admissoes": 1,
+      "desligamentos": 0
     },
     {
-      "oficina": "Logística",
-      "admissao": 5,
-      "desligamento": 1
+      "anoMes": "2018-10",
+      "admissoes": 1,
+      "desligamentos": 0
     },
     {
-      "oficina": "Montagem",
-      "admissao": 4,
-      "desligamento": 0
+      "anoMes": "2018-12",
+      "admissoes": 4,
+      "desligamentos": 0
     },
     {
-      "oficina": "Pintura",
-      "admissao": 9,
-      "desligamento": 0
+      "anoMes": "2019-02",
+      "admissoes": 1,
+      "desligamentos": 0
     },
     {
-      "oficina": "Prensa",
-      "admissao": 8,
-      "desligamento": 0
+      "anoMes": "2019-07",
+      "admissoes": 1,
+      "desligamentos": 0
     },
     {
-      "oficina": "Qualidade",
-      "admissao": 6,
-      "desligamento": 0
+      "anoMes": "2019-11",
+      "admissoes": 1,
+      "desligamentos": 0
     },
     {
-      "oficina": "Staff e Outras",
-      "admissao": 3,
-      "desligamento": 0
+      "anoMes": "2019-12",
+      "admissoes": 2,
+      "desligamentos": 0
     },
     {
-      "oficina": "Supply Chain",
-      "admissao": 6,
-      "desligamento": 0
+      "anoMes": "2020-02",
+      "admissoes": 1,
+      "desligamentos": 0
+    },
+    {
+      "anoMes": "2020-03",
+      "admissoes": 2,
+      "desligamentos": 0
+    },
+    {
+      "anoMes": "2020-05",
+      "admissoes": 1,
+      "desligamentos": 0
+    },
+    {
+      "anoMes": "2020-09",
+      "admissoes": 1,
+      "desligamentos": 0
+    },
+    {
+      "anoMes": "2020-10",
+      "admissoes": 2,
+      "desligamentos": 0
+    },
+    {
+      "anoMes": "2020-11",
+      "admissoes": 1,
+      "desligamentos": 0
+    },
+    {
+      "anoMes": "2021-03",
+      "admissoes": 2,
+      "desligamentos": 0
+    },
+    {
+      "anoMes": "2021-04",
+      "admissoes": 1,
+      "desligamentos": 0
+    },
+    {
+      "anoMes": "2021-05",
+      "admissoes": 1,
+      "desligamentos": 0
+    },
+    {
+      "anoMes": "2021-09",
+      "admissoes": 1,
+      "desligamentos": 0
+    },
+    {
+      "anoMes": "2021-12",
+      "admissoes": 1,
+      "desligamentos": 0
+    },
+    {
+      "anoMes": "2022-02",
+      "admissoes": 1,
+      "desligamentos": 0
+    },
+    {
+      "anoMes": "2022-03",
+      "admissoes": 1,
+      "desligamentos": 0
+    },
+    {
+      "anoMes": "2022-05",
+      "admissoes": 3,
+      "desligamentos": 0
+    },
+    {
+      "anoMes": "2022-09",
+      "admissoes": 2,
+      "desligamentos": 0
+    },
+    {
+      "anoMes": "2022-10",
+      "admissoes": 1,
+      "desligamentos": 0
+    },
+    {
+      "anoMes": "2022-12",
+      "admissoes": 1,
+      "desligamentos": 0
+    },
+    {
+      "anoMes": "2023-01",
+      "admissoes": 1,
+      "desligamentos": 0
+    },
+    {
+      "anoMes": "2023-04",
+      "admissoes": 1,
+      "desligamentos": 0
+    },
+    {
+      "anoMes": "2023-06",
+      "admissoes": 1,
+      "desligamentos": 0
+    },
+    {
+      "anoMes": "2023-07",
+      "admissoes": 1,
+      "desligamentos": 0
+    },
+    {
+      "anoMes": "2023-09",
+      "admissoes": 1,
+      "desligamentos": 0
+    },
+    {
+      "anoMes": "2023-12",
+      "admissoes": 1,
+      "desligamentos": 0
+    },
+    {
+      "anoMes": "2024-04",
+      "admissoes": 1,
+      "desligamentos": 0
+    },
+    {
+      "anoMes": "2024-09",
+      "admissoes": 1,
+      "desligamentos": 0
+    },
+    {
+      "anoMes": "2024-11",
+      "admissoes": 1,
+      "desligamentos": 0
+    },
+    {
+      "anoMes": "2024-12",
+      "admissoes": 1,
+      "desligamentos": 0
+    },
+    {
+      "anoMes": "2025-01",
+      "admissoes": 1,
+      "desligamentos": 0
+    },
+    {
+      "anoMes": "2025-02",
+      "admissoes": 1,
+      "desligamentos": 0
+    },
+    {
+      "anoMes": "2025-03",
+      "admissoes": 1,
+      "desligamentos": 1
+    },
+    {
+      "anoMes": "2025-06",
+      "admissoes": 1,
+      "desligamentos": 0
+    },
+    {
+      "anoMes": "2025-08",
+      "admissoes": 1,
+      "desligamentos": 0
+    },
+    {
+      "anoMes": "2026-01",
+      "admissoes": 1,
+      "desligamentos": 0
+    },
+    {
+      "anoMes": "2026-03",
+      "admissoes": 1,
+      "desligamentos": 1
+    },
+    {
+      "anoMes": "2026-05",
+      "admissoes": 1,
+      "desligamentos": 0
+    },
+    {
+      "anoMes": "2026-06",
+      "admissoes": 1,
+      "desligamentos": 1
     }
   ],
   "evolucao": [
@@ -522,6 +664,14 @@
       "hcTotal": 1833
     }
   ],
+  "insights": [
+    "GAP geral: -0.5 p.p. — faltam ~5 PCD para a meta de 5%.",
+    "Maior gap: Funilaria (-2.1 p.p., 2.9% PCD).",
+    "Melhor área: Pintura (7.0% PCD, GAP 2.0 p.p.).",
+    "Maior concentração PCD: Pintura (9 pessoas, 18% do PCD).",
+    "Turnover PCD 6.0% vs geral 8.8%.",
+    "Liderança: 7 PCD em posições de liderança (14.0% dos PCD)."
+  ],
   "filtros": {
     "plantas": [
       "Planta Leste",
@@ -536,16 +686,16 @@
       "Qualidade",
       "Supply Chain"
     ],
-    "oficinas": [
-      "Funilaria",
-      "General Service",
-      "Logística",
+    "areas": [
       "Montagem",
-      "Pintura",
-      "Prensa",
       "Qualidade",
-      "Staff e Outras",
-      "Supply Chain"
+      "Pintura",
+      "Logística",
+      "Funilaria",
+      "Supply Chain",
+      "Prensa",
+      "General Service",
+      "Staff e Outras"
     ],
     "turnos": [
       "1º Turno",
