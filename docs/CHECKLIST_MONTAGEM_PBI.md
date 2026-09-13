@@ -8,7 +8,7 @@
 4. Desabilitar “load” desnecessário; garantir nomes de tabelas iguais às abas.
 5. Criar `DimCalendario` (DAX) e marcar como tabela de datas.
 6. Criar relacionamentos (`docs/MODELO_DADOS.md`).
-7. (Recomendado) `DimPlanta` + `DimOficina`.
+7. Criar `DimArea` (9 oficiais, fixas) + `DimPlanta`. Slicers/tabela por área = DimArea.
 8. Colar medidas de `powerbi/measures/Medidas_PCD.dax` na tabela **Medidas**.
 9. Aplicar tema `powerbi/theme/PCD_Executive_Blue.json`.
 

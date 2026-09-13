@@ -44,22 +44,15 @@
    - Opção robusta: criar `DimPlanta` / `DimOficina` (tabelas distinct) e relacionar às 3 tabelas fato + colaboradores.
 5. **DimCalendario** é criada só no Power BI (pedido do cliente).
 
-## DimOficina (opcional, recomendado)
+## DimArea (obrigatória — 9 áreas oficiais)
 
-Tabela DAX ou PQ:
+Lista fixa, não DISTINCT da base. Assim **Staff e Outras** (e as demais) aparecem mesmo com HC = 0.
 
-```dax
-DimOficina =
-DISTINCT (
-    UNION (
-        DISTINCT ( COLABORADORES[Oficina] ),
-        DISTINCT ( 'HISTÓRICO MENSAL'[Oficina] ),
-        DISTINCT ( METAS[Oficina] )
-    )
-)
-```
+Ordem: Montagem, Qualidade, Pintura, Logística, Funilaria, Supply Chain, Prensa, General Service, Staff e Outras.
 
-Relacionar `DimOficina[Oficina]` 1:* com COLABORADORES, HISTÓRICO MENSAL, METAS, MOVIMENTAÇÕES.
+Relacionar `DimArea[Área]` 1:* com COLABORADORES[Área], HISTÓRICO/METAS/MOVIMENTAÇÕES[Oficina] (mesmo domínio).
+
+Slicers e tabela “Resumo por Área” usam **DimArea**, não a coluna solta do fato.
 
 Idem para `DimPlanta` se quiser slicers únicos.
 

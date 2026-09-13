@@ -13,15 +13,27 @@ ADDCOLUMNS (
     "Início Mês", DATE ( YEAR ( [Date] ), MONTH ( [Date] ), 1 )
 )
 
-// Opcional — dimensões de filtro único
-DimOficina =
-DISTINCT (
-    UNION (
-        SELECTCOLUMNS ( COLABORADORES, "Oficina", COLABORADORES[Oficina] ),
-        SELECTCOLUMNS ( 'HISTÓRICO MENSAL', "Oficina", 'HISTÓRICO MENSAL'[Oficina] ),
-        SELECTCOLUMNS ( METAS, "Oficina", METAS[Oficina] )
-    )
+// DimArea — 9 áreas oficiais FIXAS (sempre aparecem, mesmo com HC = 0)
+// Usar DimArea[Área] em slicers, eixos e tabela "Resumo por Área"
+DimArea =
+DATATABLE (
+    "Área", STRING,
+    "Ordem", INTEGER,
+    {
+        { "Montagem", 1 },
+        { "Qualidade", 2 },
+        { "Pintura", 3 },
+        { "Logística", 4 },
+        { "Funilaria", 5 },
+        { "Supply Chain", 6 },
+        { "Prensa", 7 },
+        { "General Service", 8 },
+        { "Staff e Outras", 9 }
+    }
 )
+// Relacionar DimArea[Área] 1:* com COLABORADORES[Área],
+// HISTÓRICO MENSAL[Oficina], METAS[Oficina], MOVIMENTAÇÕES[Oficina]
+// (Oficina = Área oficial neste projeto)
 
 DimPlanta =
 DISTINCT (
