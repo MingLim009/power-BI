@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>PCD Workforce & Inclusion | BI Executivo</title>
+  <title>PCD Workforce & Inclusion | Dashboard Executivo</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800&display=swap" rel="stylesheet" />
@@ -11,135 +11,153 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="dash">
-    <!-- TOP FILTERS -->
-    <header class="filters">
-      <div class="logo-box" title="Espaço para logo">LOGO</div>
-      <div class="slicer"><span>Ano</span><select id="fAno"><option value="">Todos</option></select></div>
-      <div class="slicer"><span>Planta</span><select id="fPlanta"><option value="">Todas</option></select></div>
-      <div class="slicer"><span>Diretoria</span><select id="fDiretoria"><option value="">Todas</option></select></div>
-      <div class="slicer"><span>Oficina</span><select id="fOficina"><option value="">Todas</option></select></div>
-      <button type="button" class="more" id="btnMore" aria-expanded="false">Filtros +</button>
-      <div class="avatar" aria-hidden="true"></div>
+  <div class="page">
+    <!-- Header filters — padrão BI executivo -->
+    <header class="topbar">
+      <div class="logo-slot">LOGO</div>
+      <div class="slicers">
+        <label>Ano<select id="fAno"><option value="">Todos</option></select></label>
+        <label>Mês<select id="fMes"><option value="">Todos</option></select></label>
+        <label>Planta<select id="fPlanta"><option value="">Todas</option></select></label>
+        <label>Diretoria<select id="fDiretoria"><option value="">Todas</option></select></label>
+        <label>Oficina<select id="fOficina"><option value="">Todas</option></select></label>
+        <label>Turno<select id="fTurno"><option value="">Todos</option></select></label>
+      </div>
+      <button type="button" class="btn-more" id="btnMore">Filtros +</button>
     </header>
-
-    <div class="extra" id="extra" hidden>
-      No Power BI: Gerência, Área, Turno, Classificação, Tipo de Deficiência, PCD, Status, Liderança.
+    <div class="more-box" id="moreBox" hidden>
+      Filtros no Power BI: Gerência · Área · Classificação · Tipo de Deficiência · PCD · Status · Liderança
     </div>
 
-    <!-- ROW 1: 4 KPI + GAUGE -->
-    <section class="row-kpi">
-      <article class="kpi-card">
-        <div class="ico ico-a" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M16 11c1.66 0 3-1.57 3-3.5S17.66 4 16 4s-3 1.57-3 3.5 1.34 3.5 3 3.5zM8 11c1.66 0 3-1.57 3-3.5S9.66 4 8 4 5 5.57 5 7.5 6.34 11 8 11zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5C15 14.17 10.33 13 8 13zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" fill="currentColor"/></svg>
-        </div>
+    <!-- 6 KPI cards -->
+    <section class="kpis">
+      <article class="kpi">
+        <div class="ico">HC</div>
         <div>
-          <div class="kpi-label">HC Total</div>
-          <div class="kpi-value" id="kHc">—</div>
-          <div class="kpi-sub" id="kHcSub">Ativos · base fictícia</div>
+          <div class="lbl">HC Total</div>
+          <div class="val" id="kHc">—</div>
+          <div class="trend" id="tHc">Ativos</div>
         </div>
       </article>
-      <article class="kpi-card">
-        <div class="ico ico-b" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" fill="currentColor"/></svg>
-        </div>
+      <article class="kpi">
+        <div class="ico">PCD</div>
         <div>
-          <div class="kpi-label">HC PCD</div>
-          <div class="kpi-value" id="kPcd">—</div>
-          <div class="kpi-sub" id="kPcdSub">Colaboradores PCD</div>
+          <div class="lbl">HC PCD</div>
+          <div class="val" id="kPcd">—</div>
+          <div class="trend" id="tPcd">Representatividade</div>
         </div>
       </article>
-      <article class="kpi-card">
-        <div class="ico ico-c" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M19 3H5c-1.1 0-2 .9-2 2v14l4-4h12c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z" fill="currentColor"/></svg>
-        </div>
+      <article class="kpi">
+        <div class="ico">%</div>
         <div>
-          <div class="kpi-label">% PCD</div>
-          <div class="kpi-value" id="kPct">—</div>
-          <div class="kpi-sub" id="kPctSub">vs Meta</div>
+          <div class="lbl">% PCD</div>
+          <div class="val" id="kPct">—</div>
+          <div class="trend" id="tPct">vs meta</div>
         </div>
       </article>
-      <article class="kpi-card">
-        <div class="ico ico-d" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 17.08l1.5 1.41z" fill="currentColor"/></svg>
-        </div>
+      <article class="kpi">
+        <div class="ico">M</div>
         <div>
-          <div class="kpi-label">GAP Meta x Realizado</div>
-          <div class="kpi-value" id="kGap">—</div>
-          <div class="kpi-sub" id="kGapSub">Meta 5,0%</div>
+          <div class="lbl">Meta % PCD</div>
+          <div class="val" id="kMeta">—</div>
+          <div class="trend">Corporativa</div>
         </div>
       </article>
-      <article class="gauge-card">
-        <div class="card-title">% PCD × Meta</div>
-        <div class="gauge-body">
-          <div class="gauge-wrap">
-            <canvas id="chartGauge"></canvas>
-            <div class="gauge-center">
-              <strong id="gaugeText">—</strong>
-              <span>realizado</span>
-            </div>
-          </div>
-          <div class="gauge-legend">
-            <div><i class="dot d1"></i> Realizado <b id="gReal">—</b></div>
-            <div><i class="dot d2"></i> Meta <b id="gMeta">—</b></div>
-            <div><i class="dot d3"></i> GAP <b id="gGap">—</b></div>
-          </div>
+      <article class="kpi">
+        <div class="ico">G</div>
+        <div>
+          <div class="lbl">GAP Meta × Realizado</div>
+          <div class="val" id="kGap">—</div>
+          <div class="trend" id="tGap">Desvio</div>
+        </div>
+      </article>
+      <article class="kpi">
+        <div class="ico">L</div>
+        <div>
+          <div class="lbl">% PCD Liderança</div>
+          <div class="val" id="kLid">—</div>
+          <div class="trend" id="tLid">Sobre PCD ativos</div>
         </div>
       </article>
     </section>
 
-    <!-- ROW 2 -->
-    <section class="row-mid">
+    <!-- Middle: combo + ranking table -->
+    <section class="mid">
       <article class="card">
-        <div class="card-title">Evolução mensal da % PCD</div>
-        <div class="chart-box"><canvas id="chartEvol"></canvas></div>
+        <h2>Evolução HC PCD × % PCD (mensal)</h2>
+        <div class="chart-h"><canvas id="chartCombo"></canvas></div>
       </article>
       <article class="card">
-        <div class="card-title">HC × PCD × % por Oficina</div>
-        <div class="table-wrap" id="ofiTable"></div>
+        <h2>Ranking por Oficina</h2>
+        <div class="table-scroll">
+          <table class="rank-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Oficina</th>
+                <th>HC</th>
+                <th>PCD</th>
+                <th>% PCD</th>
+                <th>GAP</th>
+                <th>Barra</th>
+              </tr>
+            </thead>
+            <tbody id="rankBody"></tbody>
+          </table>
+        </div>
       </article>
+    </section>
+
+    <!-- Bottom: donut, turno (pedido), plantas, movimentação -->
+    <section class="bot">
       <article class="card">
-        <div class="card-title">Tipo de deficiência</div>
-        <div class="donut-row">
-          <div class="donut-wrap">
+        <h2>Tipo de deficiência</h2>
+        <div class="donut-block">
+          <div class="donut-box">
             <canvas id="chartTipo"></canvas>
-            <div class="donut-center">
-              <strong id="tipoTotal">—</strong>
-              <span>PCD</span>
-            </div>
+            <div class="donut-label"><strong id="tipoTotal">—</strong><span>PCD</span></div>
           </div>
-          <ul class="legend-list" id="tipoLegend"></ul>
+          <ul class="leg" id="tipoLeg"></ul>
         </div>
+      </article>
+
+      <article class="card highlight">
+        <h2>HC × PCD por Turno</h2>
+        <p class="sub">1º Turno · 2º Turno · 3º Turno · Administrativo</p>
+        <div class="chart-h"><canvas id="chartTurno"></canvas></div>
+      </article>
+
+      <article class="card">
+        <h2>Admissões × Desligamentos PCD</h2>
+        <div class="chart-h"><canvas id="chartMov"></canvas></div>
+      </article>
+
+      <article class="card">
+        <h2>% PCD por Planta</h2>
+        <div class="chart-h"><canvas id="chartPlanta"></canvas></div>
       </article>
     </section>
 
-    <!-- ROW 3 -->
-    <section class="row-bot">
-      <article class="card">
-        <div class="card-title">Admissões × Desligamentos PCD</div>
-        <div class="chart-box"><canvas id="chartMov"></canvas></div>
+    <section class="foot-row">
+      <article class="card stretch">
+        <h2>Blue Collar × White Collar (PCD)</h2>
+        <div class="chart-h short"><canvas id="chartClass"></canvas></div>
       </article>
-      <article class="card">
-        <div class="card-title">Blue Collar × White Collar</div>
-        <div class="chart-box short"><canvas id="chartClass"></canvas></div>
-        <div class="mini-kpis">
-          <div><span>Promoções PCD</span><b id="sPro">—</b></div>
-          <div><span>Mov. internas</span><b id="sMov">—</b></div>
-          <div><span>% Liderança</span><b id="sLid">—</b></div>
-        </div>
+      <article class="card stretch">
+        <h2>Meta × Realizado ao longo do tempo</h2>
+        <div class="chart-h short"><canvas id="chartMeta"></canvas></div>
       </article>
-      <article class="card">
-        <div class="card-title">Meta × Realizado (tempo)</div>
-        <div class="chart-box"><canvas id="chartMeta"></canvas></div>
-      </article>
-      <article class="card insights">
-        <div class="card-title">Indicadores de movimentação</div>
-        <ul class="activity" id="activity">
-          <li><span class="bullet b1"></span> Admissões PCD <b id="sAdm">—</b></li>
-          <li><span class="bullet b2"></span> Desligamentos PCD <b id="sDes">—</b></li>
-          <li><span class="bullet b3"></span> Saldo líquido <b id="sSaldo">—</b></li>
-          <li><span class="bullet b4"></span> Tempo médio empresa <b id="sTen">—</b> anos</li>
-          <li><span class="bullet b5"></span> Meta corporativa <b>5,0%</b></li>
+      <article class="card stats">
+        <h2>Movimentação & permanência</h2>
+        <ul>
+          <li><span>Admissões PCD</span><b id="sAdm">—</b></li>
+          <li><span>Desligamentos PCD</span><b id="sDes">—</b></li>
+          <li><span>Promoções PCD</span><b id="sPro">—</b></li>
+          <li><span>Mov. internas PCD</span><b id="sMov">—</b></li>
+          <li><span>Saldo líquido</span><b id="sSaldo">—</b></li>
+          <li><span>Tempo médio empresa</span><b id="sTen">—</b></li>
+          <li><span>% Blue / White</span><b id="sBw">—</b></li>
+          <li><span>Oficinas</span><b id="sOfi">—</b></li>
         </ul>
       </article>
     </section>

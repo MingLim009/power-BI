@@ -36,10 +36,9 @@ Usar **Bookmarks** + botão para abrir/fechar o painel lateral (padrão executiv
 | Card 3 | Card | `Pct PCD` (formato %) |
 | Card 4 | Card | `Meta Pct PCD` |
 | Card 5 | Card | `GAP Meta Realizado` (condicional: vermelho se < 0) |
-| Gauge | Radial gauge / KPI | Valor `Pct PCD` / Meta `Meta Pct PCD` |
-| Evolução | Area/line + DimCalendario[AnoMês] | `Pct PCD Historico` |
-| Meta x Realizado | Line combo | `Pct PCD Historico` + `Meta Pct PCD` |
-| Por oficina | Clustered bar ou matrix | Oficina + `HC Total`, `HC PCD`, `Pct PCD` |
+| Gauge / KPI | Radial / card | `Pct PCD` vs `Meta Pct PCD` |
+| Por turno | Clustered bar | Turno (1º / 2º / 3º / Administrativo) + `HC Total`, `HC PCD` |
+| Por oficina | Matrix / table | Oficina + `HC Total`, `HC PCD`, `Pct PCD` |
 | GAP oficina | Bar | Oficina + `GAP Meta Realizado` (no snapshot) ou `GAP Historico` |
 | Adm x Deslig | Clustered bar | Oficina + `Admissoes PCD`, `Desligamentos PCD` |
 | Tipo deficiência | Donut | `Tipo de Deficiência` + contagem PCD ativos |
