@@ -1,223 +1,247 @@
-/* Executive preview — Chart.js */
-const fmtPct = (v) => `${(v * 100).toFixed(1)}%`;
+const fmtPct = (v) => `${(v * 100).toFixed(1).replace(".", ",")}%`;
 const fmtInt = (v) => new Intl.NumberFormat("pt-BR").format(v);
-
-const palette = {
-  navy: "#0B3A5B",
-  blue: "#1B6CA8",
-  sky: "#5DADE2",
-  gray: "#85929E",
-  good: "#1E8449",
-  bad: "#C0392B",
-  soft: "#D4E6F1",
-};
+const colors = ["#0a2f4a", "#1a6fb5", "#3b8fd4", "#7eb6e0", "#e67e22", "#5d6d7e"];
+const font = { family: "Inter", size: 11, weight: "700" };
 
 let charts = {};
 
-async function load() {
-  const res = await fetch("data.json");
-  const data = await res.json();
+async function main() {
+  const data = await (await fetch("data.json")).json();
   fillFilters(data);
-  render(data);
-  document.getElementById("btnMoreFilters").addEventListener("click", () => {
-    const d = document.getElementById("drawer");
-    const open = d.hasAttribute("hidden");
-    if (open) d.removeAttribute("hidden");
-    else d.setAttribute("hidden", "");
-    document.getElementById("btnMoreFilters").setAttribute("aria-expanded", String(open));
-  });
+  renderKpis(data.kpis);
+  renderOficinaTable(data.oficinas);
+  renderCharts(data);
+  document.getElementById("btnMore").onclick = () => {
+    const el = document.getElementById("extra");
+    el.hidden = !el.hidden;
+  };
 }
 
 function fillFilters(data) {
-  const planta = document.getElementById("fPlanta");
-  const dir = document.getElementById("fDiretoria");
-  const ofi = document.getElementById("fOficina");
-  const ano = document.getElementById("fAno");
-  data.filtros.plantas.forEach((p) => planta.insertAdjacentHTML("beforeend", `<option>${p}</option>`));
-  data.filtros.diretorias.forEach((p) => dir.insertAdjacentHTML("beforeend", `<option>${p}</option>`));
-  data.filtros.oficinas.forEach((p) => ofi.insertAdjacentHTML("beforeend", `<option>${p}</option>`));
-  const years = [...new Set(data.evolucao.map((e) => e.anoMes.slice(0, 4)))];
-  years.forEach((y) => ano.insertAdjacentHTML("beforeend", `<option value="${y}">${y}</option>`));
-
-  // Preview note: filters are illustrative; full interactivity is in Power BI model
-  [planta, dir, ofi, ano].forEach((el) => {
-    el.addEventListener("change", () => {
-      document.getElementById("footNote").textContent =
-        "Filtros do preview são demonstrativos — no Power BI todos os KPIs recalculam via modelo/DAX.";
-    });
+  const fill = (id, arr) => {
+    const el = document.getElementById(id);
+    arr.forEach((v) => el.insertAdjacentHTML("beforeend", `<option>${v}</option>`));
+  };
+  fill("fPlanta", data.filtros.plantas);
+  fill("fDiretoria", data.filtros.diretorias);
+  fill("fOficina", data.filtros.oficinas);
+  [...new Set(data.evolucao.map((e) => e.anoMes.slice(0, 4)))].forEach((y) => {
+    document.getElementById("fAno").insertAdjacentHTML("beforeend", `<option value="${y}">${y}</option>`);
   });
 }
 
-function render(data) {
-  const k = data.kpis;
+function renderKpis(k) {
   document.getElementById("kHc").textContent = fmtInt(k.hcTotal);
   document.getElementById("kPcd").textContent = fmtInt(k.hcPcd);
   document.getElementById("kPct").textContent = fmtPct(k.pctPcd);
-  document.getElementById("kMeta").textContent = fmtPct(k.meta);
-  const gapEl = document.getElementById("kGap");
-  gapEl.textContent = fmtPct(k.gap);
-  gapEl.className = k.gap < 0 ? "neg" : "pos";
-
-  document.getElementById("sAdm").textContent = fmtInt(k.admissoes);
-  document.getElementById("sDes").textContent = fmtInt(k.desligamentos);
+  document.getElementById("kPctSub").textContent = `vs Meta ${fmtPct(k.meta)}`;
+  const gap = document.getElementById("kGap");
+  gap.textContent = fmtPct(k.gap);
+  gap.className = `kpi-value ${k.gap < 0 ? "neg" : "pos"}`;
+  document.getElementById("kGapSub").textContent = `Meta ${fmtPct(k.meta)}`;
+  document.getElementById("gaugeText").textContent = fmtPct(k.pctPcd);
+  document.getElementById("gReal").textContent = fmtPct(k.pctPcd);
+  document.getElementById("gMeta").textContent = fmtPct(k.meta);
+  document.getElementById("gGap").textContent = fmtPct(k.gap);
   document.getElementById("sPro").textContent = fmtInt(k.promocoes);
   document.getElementById("sMov").textContent = fmtInt(k.movInternas);
-  document.getElementById("sTen").textContent = k.tenureYears.toFixed(1);
-  document.getElementById("sBlue").textContent = fmtPct(k.pctBlue);
-  document.getElementById("sWhite").textContent = fmtPct(k.pctWhite);
   document.getElementById("sLid").textContent = fmtPct(k.pctLideranca);
-  document.getElementById("gaugeText").textContent = fmtPct(k.pctPcd);
-  document.getElementById("footNote").textContent = `Meta ${fmtPct(k.meta)} · GAP ${fmtPct(k.gap)}`;
+  document.getElementById("sAdm").textContent = fmtInt(k.admissoes);
+  document.getElementById("sDes").textContent = fmtInt(k.desligamentos);
+  document.getElementById("sSaldo").textContent = fmtInt(k.saldo);
+  document.getElementById("sTen").textContent = k.tenureYears.toFixed(1).replace(".", ",");
+}
 
-  // Gauge doughnut
+function renderOficinaTable(rows) {
+  const max = Math.max(...rows.map((r) => r.hcPcd), 1);
+  const html = `
+    <table class="ofi-table">
+      <thead><tr><th>Oficina</th><th>HC</th><th>PCD</th><th>%</th><th></th></tr></thead>
+      <tbody>
+        ${rows
+          .map(
+            (r) => `
+          <tr>
+            <td class="name" title="${r.oficina}">${r.oficina.replace("Oficina ", "")}</td>
+            <td>${fmtInt(r.hc)}</td>
+            <td>${fmtInt(r.hcPcd)}</td>
+            <td>${fmtPct(r.pct)}</td>
+            <td class="bar-cell"><div class="bar-track"><div class="bar-fill" style="width:${(r.hcPcd / max) * 100}%"></div></div></td>
+          </tr>`
+          )
+          .join("")}
+      </tbody>
+    </table>`;
+  document.getElementById("ofiTable").innerHTML = html;
+}
+
+function renderCharts(data) {
+  const k = data.kpis;
+  const tick = { color: "#102033", font };
+
+  // Gauge
+  const real = Math.min(k.pctPcd, k.meta);
+  const miss = Math.max(k.meta - k.pctPcd, 0);
+  const rest = Math.max(1 - k.meta, 0.0001);
   charts.gauge = new Chart(document.getElementById("chartGauge"), {
     type: "doughnut",
     data: {
       datasets: [{
-        data: [Math.min(k.pctPcd, k.meta), Math.max(k.meta - k.pctPcd, 0.0001), Math.max(1 - k.meta, 0)],
-        backgroundColor: [palette.blue, palette.bad, palette.soft],
+        data: [real, miss || 0.0001, rest],
+        backgroundColor: ["#1a6fb5", "#e67e22", "#d7e6f4"],
         borderWidth: 0,
-        cutout: "72%",
+        cutout: "74%",
       }],
     },
-    options: {
-      plugins: { legend: { display: false }, tooltip: { enabled: false } },
-      animation: { animateRotate: true, duration: 900 },
-    },
+    options: { plugins: { legend: { display: false }, tooltip: { enabled: false } }, animation: { duration: 500 } },
   });
 
-  const labelsE = data.evolucao.map((e) => e.anoMes);
+  // Evolution area
+  const labels = data.evolucao.map((e) => e.anoMes.slice(5) + "/" + e.anoMes.slice(2, 4));
   charts.evol = new Chart(document.getElementById("chartEvol"), {
     type: "line",
     data: {
-      labels: labelsE,
+      labels,
       datasets: [{
-        label: "% PCD",
-        data: data.evolucao.map((e) => e.pct * 100),
-        borderColor: palette.blue,
-        backgroundColor: "rgba(27,108,168,0.18)",
+        data: data.evolucao.map((e) => +(e.pct * 100).toFixed(2)),
+        borderColor: "#1a6fb5",
+        backgroundColor: (ctx) => {
+          const { chart } = ctx;
+          const { ctx: c, chartArea } = chart;
+          if (!chartArea) return "rgba(26,111,181,0.2)";
+          const g = c.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+          g.addColorStop(0, "rgba(26,111,181,0.35)");
+          g.addColorStop(1, "rgba(26,111,181,0.02)");
+          return g;
+        },
         fill: true,
-        tension: 0.35,
+        tension: 0.4,
         pointRadius: 0,
-        borderWidth: 2,
+        borderWidth: 2.5,
       }],
     },
-    options: chartOpts("%"),
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { ticks: { ...tick, maxTicksLimit: 8 }, grid: { display: false } },
+        y: { ticks: { ...tick, callback: (v) => v + "%" }, grid: { color: "#e8eef5" } },
+      },
+    },
   });
 
+  // Tipo donut + legend
+  const total = data.tipos.reduce((s, t) => s + t.n, 0);
+  document.getElementById("tipoTotal").textContent = fmtInt(total);
+  document.getElementById("tipoLegend").innerHTML = data.tipos
+    .map(
+      (t, i) => `
+      <li>
+        <span class="swatch" style="background:${colors[i % colors.length]}"></span>
+        <span>${t.tipo}</span>
+        <span>${fmtInt(t.n)}</span>
+        <span class="pct">${((t.n / total) * 100).toFixed(1).replace(".", ",")}%</span>
+      </li>`
+    )
+    .join("");
+  charts.tipo = new Chart(document.getElementById("chartTipo"), {
+    type: "doughnut",
+    data: {
+      labels: data.tipos.map((t) => t.tipo),
+      datasets: [{ data: data.tipos.map((t) => t.n), backgroundColor: colors, borderWidth: 0, cutout: "68%" }],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+    },
+  });
+
+  // Mov bars
+  const short = (s) => s.replace(/^Oficina\s*/, "").split(" - ")[0];
+  charts.mov = new Chart(document.getElementById("chartMov"), {
+    type: "bar",
+    data: {
+      labels: data.movOficina.map((m) => short(m.oficina)),
+      datasets: [
+        { label: "Admissões", data: data.movOficina.map((m) => m.admissao), backgroundColor: "#1a6fb5", borderRadius: 4 },
+        { label: "Desligamentos", data: data.movOficina.map((m) => m.desligamento), backgroundColor: "#7eb6e0", borderRadius: 4 },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { labels: { ...tick, boxWidth: 10 } } },
+      scales: {
+        x: { ticks: tick, grid: { display: false } },
+        y: { ticks: tick, grid: { color: "#e8eef5" }, beginAtZero: true },
+      },
+    },
+  });
+
+  // Classificação
+  charts.classif = new Chart(document.getElementById("chartClass"), {
+    type: "bar",
+    data: {
+      labels: data.classificacao.map((c) => c.nome),
+      datasets: [{
+        data: data.classificacao.map((c) => c.n),
+        backgroundColor: ["#0a2f4a", "#3b8fd4"],
+        borderRadius: 6,
+        barThickness: 28,
+      }],
+    },
+    options: {
+      indexAxis: "y",
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { ticks: tick, grid: { color: "#e8eef5" } },
+        y: { ticks: tick, grid: { display: false } },
+      },
+    },
+  });
+
+  // Meta x Realizado
   charts.meta = new Chart(document.getElementById("chartMeta"), {
     type: "line",
     data: {
-      labels: labelsE,
+      labels,
       datasets: [
         {
           label: "Realizado",
-          data: data.evolucao.map((e) => e.pct * 100),
-          borderColor: palette.navy,
-          tension: 0.3,
+          data: data.evolucao.map((e) => +(e.pct * 100).toFixed(2)),
+          borderColor: "#0a2f4a",
+          backgroundColor: "rgba(10,47,74,0.12)",
+          fill: true,
+          tension: 0.35,
           pointRadius: 0,
-          borderWidth: 2,
+          borderWidth: 2.5,
         },
         {
           label: "Meta",
-          data: data.evolucao.map((e) => e.meta * 100),
-          borderColor: palette.bad,
+          data: data.evolucao.map((e) => +(e.meta * 100).toFixed(2)),
+          borderColor: "#e67e22",
           borderDash: [6, 4],
           pointRadius: 0,
           borderWidth: 2,
         },
       ],
     },
-    options: chartOpts("%"),
-  });
-
-  const short = (s) => s.replace("Oficina ", "").replace(" - ", " · ");
-  charts.ofi = new Chart(document.getElementById("chartOficina"), {
-    type: "bar",
-    data: {
-      labels: data.oficinas.map((o) => short(o.oficina)),
-      datasets: [
-        { label: "HC", data: data.oficinas.map((o) => o.hc), backgroundColor: palette.soft, borderRadius: 4 },
-        { label: "PCD", data: data.oficinas.map((o) => o.hcPcd), backgroundColor: palette.blue, borderRadius: 4 },
-      ],
-    },
     options: {
-      ...chartOpts(""),
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { labels: { ...tick, boxWidth: 10 } } },
       scales: {
-        x: { ticks: { maxRotation: 45, minRotation: 0, font: { size: 10, weight: "700", family: "DM Sans" }, color: "#0f1720" }, grid: { display: false } },
-        y: { grid: { color: "#eef2f6" }, ticks: { font: { size: 11, weight: "700", family: "DM Sans" }, color: "#0f1720" } },
-      },
-    },
-  });
-
-  charts.tipo = new Chart(document.getElementById("chartTipo"), {
-    type: "doughnut",
-    data: {
-      labels: data.tipos.map((t) => t.tipo),
-      datasets: [{
-        data: data.tipos.map((t) => t.n),
-        backgroundColor: [palette.navy, palette.blue, palette.sky, palette.gray, "#7D3C98"],
-        borderWidth: 0,
-      }],
-    },
-    options: {
-      plugins: {
-        legend: { position: "bottom", labels: { boxWidth: 10, font: { size: 12, weight: "700", family: "DM Sans" }, color: "#0f1720" } },
-      },
-    },
-  });
-
-  charts.mov = new Chart(document.getElementById("chartMov"), {
-    type: "bar",
-    data: {
-      labels: data.movOficina.map((m) => short(m.oficina)),
-      datasets: [
-        { label: "Admissões", data: data.movOficina.map((m) => m.admissao), backgroundColor: palette.good, borderRadius: 4 },
-        { label: "Desligamentos", data: data.movOficina.map((m) => m.desligamento), backgroundColor: palette.bad, borderRadius: 4 },
-      ],
-    },
-    options: {
-      ...chartOpts(""),
-      scales: {
-        x: { ticks: { font: { size: 10, weight: "700", family: "DM Sans" }, color: "#0f1720" }, grid: { display: false } },
-        y: { grid: { color: "#eef2f6" }, ticks: { font: { size: 11, weight: "700", family: "DM Sans" }, color: "#0f1720" } },
+        x: { ticks: { ...tick, maxTicksLimit: 8 }, grid: { display: false } },
+        y: { ticks: { ...tick, callback: (v) => v + "%" }, grid: { color: "#e8eef5" } },
       },
     },
   });
 }
 
-function chartOpts(suffix) {
-  const tickFont = { size: 11, weight: "700", family: "DM Sans" };
-  return {
-    responsive: true,
-    maintainAspectRatio: true,
-    plugins: {
-      legend: {
-        labels: {
-          boxWidth: 10,
-          font: { size: 12, weight: "700", family: "DM Sans" },
-          color: "#0f1720",
-        },
-      },
-    },
-    scales: {
-      x: {
-        ticks: { ...tickFont, maxTicksLimit: 10, color: "#0f1720" },
-        grid: { display: false },
-      },
-      y: {
-        grid: { color: "#eef2f6" },
-        ticks: {
-          ...tickFont,
-          color: "#0f1720",
-          callback: (v) => (suffix === "%" ? `${v}%` : v),
-        },
-      },
-    },
-    animation: { duration: 400 },
-  };
-}
-
-load().catch((err) => {
-  document.body.innerHTML = `<p style="padding:24px;font-family:sans-serif">Erro ao carregar data.json. Rode <code>python scripts/export_preview_json.py</code>.<br>${err}</p>`;
+main().catch((e) => {
+  document.body.innerHTML = `<p style="padding:24px;font-family:Inter,sans-serif;font-weight:700">Falha ao carregar data.json<br>${e}</p>`;
 });
