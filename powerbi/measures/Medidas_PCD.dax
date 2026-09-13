@@ -1,0 +1,120 @@
+// ============================================================
+// PCD Workforce & Inclusion — Medidas DAX (produção)
+// Criar uma tabela de medidas vazia "Medidas" e colar cada bloco.
+// Formatação sugerida: % em Percent 1 casa; GAP em Percent 1 casa;
+// headcounts em Whole Number; tempo em Decimal 1 casa.
+// ============================================================
+
+// --- HC corrente (snapshot COLABORADORES) ---
+
+HC Total = 
+CALCULATE (
+    COUNTROWS ( COLABORADORES ),
+    COLABORADORES[Status] = "Ativo"
+)
+
+HC PCD = 
+CALCULATE (
+    COUNTROWS ( COLABORADORES ),
+    COLABORADORES[Status] = "Ativo",
+    COLABORADORES[PCD] = "Sim"
+)
+
+Pct PCD = 
+DIVIDE ( [HC PCD], [HC Total] )
+
+Meta Pct PCD = 
+AVERAGE ( METAS[Meta % PCD] )
+
+GAP Meta Realizado = 
+[Pct PCD] - [Meta Pct PCD]
+
+// --- Movimentações ---
+
+Admissoes PCD = 
+CALCULATE (
+    COUNTROWS ( 'MOVIMENTAÇÕES' ),
+    'MOVIMENTAÇÕES'[Tipo Movimento] = "Admissão",
+    'MOVIMENTAÇÕES'[PCD] = "Sim"
+)
+
+Desligamentos PCD = 
+CALCULATE (
+    COUNTROWS ( 'MOVIMENTAÇÕES' ),
+    'MOVIMENTAÇÕES'[Tipo Movimento] = "Desligamento",
+    'MOVIMENTAÇÕES'[PCD] = "Sim"
+)
+
+Promocoes PCD = 
+CALCULATE (
+    COUNTROWS ( 'MOVIMENTAÇÕES' ),
+    'MOVIMENTAÇÕES'[Tipo Movimento] = "Promoção",
+    'MOVIMENTAÇÕES'[PCD] = "Sim"
+)
+
+Movimentacoes Internas PCD = 
+CALCULATE (
+    COUNTROWS ( 'MOVIMENTAÇÕES' ),
+    'MOVIMENTAÇÕES'[Tipo Movimento] = "Movimentação Interna",
+    'MOVIMENTAÇÕES'[PCD] = "Sim"
+)
+
+Saldo Movimentacao PCD = 
+[Admissoes PCD] - [Desligamentos PCD]
+
+// --- Tempo de empresa ---
+
+Tempo Medio Empresa PCD Anos = 
+AVERAGEX (
+    FILTER (
+        COLABORADORES,
+        COLABORADORES[Status] = "Ativo"
+            && COLABORADORES[PCD] = "Sim"
+    ),
+    DIVIDE (
+        DATEDIFF ( COLABORADORES[Data de Admissão], TODAY (), DAY ),
+        365.25
+    )
+)
+
+// --- Classificação & liderança (sobre PCD ativos) ---
+
+HC PCD Blue Collar = 
+CALCULATE ( [HC PCD], COLABORADORES[Classificação] = "Blue Collar" )
+
+HC PCD White Collar = 
+CALCULATE ( [HC PCD], COLABORADORES[Classificação] = "White Collar" )
+
+Pct PCD Blue Collar = 
+DIVIDE ( [HC PCD Blue Collar], [HC PCD] )
+
+Pct PCD White Collar = 
+DIVIDE ( [HC PCD White Collar], [HC PCD] )
+
+HC PCD Lideranca = 
+CALCULATE ( [HC PCD], COLABORADORES[Liderança] = "Sim" )
+
+Pct PCD em Lideranca = 
+DIVIDE ( [HC PCD Lideranca], [HC PCD] )
+
+// --- Série temporal (HISTÓRICO MENSAL) ---
+
+HC Total Historico = 
+SUM ( 'HISTÓRICO MENSAL'[HC Total] )
+
+HC PCD Historico = 
+SUM ( 'HISTÓRICO MENSAL'[HC PCD] )
+
+Pct PCD Historico = 
+DIVIDE ( [HC PCD Historico], [HC Total Historico] )
+
+GAP Historico = 
+[Pct PCD Historico] - [Meta Pct PCD]
+
+// --- Apoio ---
+
+Qtd Oficinas = 
+DISTINCTCOUNT ( COLABORADORES[Oficina] )
+
+HC Total Sem Filtro Status = 
+COUNTROWS ( COLABORADORES )

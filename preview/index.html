@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PCD Workforce & Inclusion | Executive Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@600;700;800&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="shell">
+    <header class="top">
+      <div class="logo-slot" title="Espaço reservado para logo">
+        <span>LOGO</span>
+      </div>
+      <div class="filters-main">
+        <label>Ano<select id="fAno"><option value="">Todos</option></select></label>
+        <label>Planta<select id="fPlanta"><option value="">Todas</option></select></label>
+        <label>Diretoria<select id="fDiretoria"><option value="">Todas</option></select></label>
+        <label>Oficina<select id="fOficina"><option value="">Todas</option></select></label>
+      </div>
+      <button type="button" class="btn-filters" id="btnMoreFilters" aria-expanded="false">Filtros +</button>
+    </header>
+
+    <aside class="drawer" id="drawer" hidden>
+      <h3>Filtros adicionais</h3>
+      <p>No Power BI: Gerência, Área, Turno, Classificação, Tipo de Deficiência, PCD, Status, Liderança (painel/bookmark).</p>
+      <p class="hint">Preview HTML usa recorte sintético agregado. O .pbix aplica todos os slicers no modelo.</p>
+    </aside>
+
+    <section class="kpis">
+      <article class="kpi"><span class="label">HC Total</span><strong id="kHc">—</strong></article>
+      <article class="kpi"><span class="label">HC PCD</span><strong id="kPcd">—</strong></article>
+      <article class="kpi"><span class="label">% PCD</span><strong id="kPct">—</strong></article>
+      <article class="kpi"><span class="label">Meta % PCD</span><strong id="kMeta">—</strong></article>
+      <article class="kpi"><span class="label">GAP Meta x Realizado</span><strong id="kGap">—</strong></article>
+      <article class="kpi gauge-card">
+        <span class="label">Atingimento</span>
+        <div class="gauge-wrap">
+          <canvas id="chartGauge" width="120" height="120"></canvas>
+          <div class="gauge-center" id="gaugeText">—</div>
+        </div>
+      </article>
+    </section>
+
+    <section class="row mid">
+      <article class="panel">
+        <h2>Evolução mensal da % PCD</h2>
+        <canvas id="chartEvol"></canvas>
+      </article>
+      <article class="panel">
+        <h2>HC × PCD × % por Oficina</h2>
+        <canvas id="chartOficina"></canvas>
+      </article>
+      <article class="panel">
+        <h2>Distribuição por tipo de deficiência</h2>
+        <canvas id="chartTipo"></canvas>
+      </article>
+    </section>
+
+    <section class="row bot">
+      <article class="panel">
+        <h2>Meta × Realizado ao longo do tempo</h2>
+        <canvas id="chartMeta"></canvas>
+      </article>
+      <article class="panel">
+        <h2>Admissões × Desligamentos PCD</h2>
+        <canvas id="chartMov"></canvas>
+      </article>
+      <article class="panel side-stats">
+        <h2>Movimentação & perfil</h2>
+        <ul>
+          <li><span>Admissões PCD</span><b id="sAdm">—</b></li>
+          <li><span>Desligamentos PCD</span><b id="sDes">—</b></li>
+          <li><span>Promoções PCD</span><b id="sPro">—</b></li>
+          <li><span>Mov. internas PCD</span><b id="sMov">—</b></li>
+          <li><span>Tempo médio empresa (anos)</span><b id="sTen">—</b></li>
+          <li><span>% PCD Blue Collar</span><b id="sBlue">—</b></li>
+          <li><span>% PCD White Collar</span><b id="sWhite">—</b></li>
+          <li><span>% PCD em liderança</span><b id="sLid">—</b></li>
+        </ul>
+      </article>
+    </section>
+
+    <footer>
+      Preview executivo · dados fictícios (LGPD) · espelha o pacote Power BI ·
+      <span id="footNote"></span>
+    </footer>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

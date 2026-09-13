@@ -1,0 +1,44 @@
+{
+  "name": "PCD Executive Blue",
+  "dataColors": [
+    "#0B3A5B",
+    "#1B6CA8",
+    "#5DADE2",
+    "#85929E",
+    "#1E8449",
+    "#C0392B",
+    "#F4D03F",
+    "#7D3C98"
+  ],
+  "background": "#F5F8FB",
+  "foreground": "#1C2833",
+  "tableAccent": "#1B6CA8",
+  "good": "#1E8449",
+  "neutral": "#85929E",
+  "bad": "#C0392B",
+  "maximum": "#0B3A5B",
+  "center": "#5DADE2",
+  "minimum": "#D4E6F1",
+  "textClasses": {
+    "callout": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 28,
+      "color": "#0B3A5B"
+    },
+    "title": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 12,
+      "color": "#1C2833"
+    },
+    "header": {
+      "fontFace": "Segoe UI",
+      "fontSize": 11,
+      "color": "#1C2833"
+    },
+    "label": {
+      "fontFace": "Segoe UI",
+      "fontSize": 10,
+      "color": "#566573"
+    }
+  }
+}

@@ -1,0 +1,33 @@
+// DimCalendario — cola como New table (DAX) no Power BI
+// Marcar a coluna [Date] como Date table
+
+DimCalendario =
+ADDCOLUMNS (
+    CALENDAR ( DATE ( 2024, 1, 1 ), DATE ( 2026, 12, 31 ) ),
+    "Ano", YEAR ( [Date] ),
+    "Mês", MONTH ( [Date] ),
+    "Nome Mês", FORMAT ( [Date], "MMM" ),
+    "AnoMês", FORMAT ( [Date], "YYYY-MM" ),
+    "AnoMês Ordenacao", YEAR ( [Date] ) * 100 + MONTH ( [Date] ),
+    "Trimestre", "T" & FORMAT ( [Date], "Q" ),
+    "Início Mês", DATE ( YEAR ( [Date] ), MONTH ( [Date] ), 1 )
+)
+
+// Opcional — dimensões de filtro único
+DimOficina =
+DISTINCT (
+    UNION (
+        SELECTCOLUMNS ( COLABORADORES, "Oficina", COLABORADORES[Oficina] ),
+        SELECTCOLUMNS ( 'HISTÓRICO MENSAL', "Oficina", 'HISTÓRICO MENSAL'[Oficina] ),
+        SELECTCOLUMNS ( METAS, "Oficina", METAS[Oficina] )
+    )
+)
+
+DimPlanta =
+DISTINCT (
+    UNION (
+        SELECTCOLUMNS ( COLABORADORES, "Planta", COLABORADORES[Planta] ),
+        SELECTCOLUMNS ( 'HISTÓRICO MENSAL', "Planta", 'HISTÓRICO MENSAL'[Planta] ),
+        SELECTCOLUMNS ( METAS, "Planta", METAS[Planta] )
+    )
+)
