@@ -6,14 +6,14 @@
 - % PCD
 - Meta PCD
 - GAP (pontos percentuais e quantidade de PCD)
-- % PCD em liderança = PCD em liderança ÷ total de posições de liderança
+- % PCD em posições de liderança = PCD em liderança ÷ total de posições de liderança
 - Evolução mensal da % PCD (Jan, Fev, Mar, Abr…)
 - Meta × Realizado
-- Principais destaques
+- Principais destaques (dinâmicos com os filtros: maiores GAPs, melhores resultados, concentração, turnover)
 
 ## Distribuição
 - PCD por Área (HC × PCD) — 9 áreas
-- Resumo por Área (HC, PCD, %, GAP, admissões, desligamentos)
+- Resumo por Área (HC, PCD, % PCD, GAP, admissões, desligamentos) — GAP verde/vermelho
 - Representatividade PCD × Não PCD
 - Distribuição de PCD por Área
 - Tipo de deficiência

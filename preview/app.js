@@ -156,9 +156,18 @@ function compute() {
     desligamentos: mov.filter((r) => r.pcd && r.k === "Desligamento" && r.ym === ym).length,
   }));
 
-  const worst = [...areaRows].sort((a, b) => a.gap - b.gap)[0];
+  const rankedGap = [...areaRows].sort((a, b) => a.gap - b.gap);
+  const worst = rankedGap[0];
+  const worst2 = rankedGap[1];
   const best = [...areaRows].sort((a, b) => b.gap - a.gap)[0];
   const top = [...areaRows].sort((a, b) => b.hcPcd - a.hcPcd)[0];
+  const recorte = [
+    f.ano || "Todos os anos",
+    f.mes ? MESES_PT[Number(f.mes) - 1] : "Todos os meses",
+    f.planta || "Todas as plantas",
+    f.area || "9 áreas",
+    f.turno || "Todos os turnos",
+  ].join(" · ");
 
   return {
     kpis: {
@@ -201,16 +210,27 @@ function compute() {
     ],
     movMensal,
     evolucao,
+    recorte,
     insights: [
-      gapQtd > 0
-        ? `GAP geral: ${(gapPp * 100).toFixed(1)} p.p. — faltam ~${Math.max(0, Math.round(gapQtd))} PCD para a meta de 5%.`
-        : `Meta atingida/superada: GAP ${(gapPp * 100).toFixed(1)} p.p.`,
-      `Maior gap: ${worst.area} (${(worst.gap * 100).toFixed(1)} p.p.).`,
-      `Melhor área: ${best.area} (${(best.pct * 100).toFixed(1)}% PCD).`,
-      `Maior concentração PCD: ${top.area} (${top.hcPcd} pessoas).`,
-      `Turnover PCD ${(turnoverPcd * 100).toFixed(1)}% vs geral ${(turnoverGeral * 100).toFixed(1)}%.`,
-      `Liderança: ${liderPcd} PCD ÷ ${liderTotal} posições de liderança (${liderTotal ? ((liderPcd / liderTotal) * 100).toFixed(1) : "0,0"}%).`,
-    ],
+      {
+        kind: gapQtd > 0 ? "bad" : "good",
+        text: gapQtd > 0
+          ? `GAP geral ${fmtPct(gapPp)} — faltam ~${Math.max(0, Math.round(gapQtd))} PCD para a meta de ${fmtPct(META)}.`
+          : `Meta atingida/superada no recorte. GAP ${fmtPct(gapPp)}.`,
+      },
+      { kind: "bad", text: `Maior GAP: ${worst.area} (${fmtPct(worst.gap)}).` },
+      worst2 ? { kind: "bad", text: `2º maior GAP: ${worst2.area} (${fmtPct(worst2.gap)}).` } : null,
+      { kind: "good", text: `Melhor resultado: ${best.area} — ${fmtPct(best.pct)} PCD (GAP ${fmtPct(best.gap)}).` },
+      { kind: "info", text: `Maior concentração PCD: ${top.area} (${fmtInt(top.hcPcd)} pessoas, ${fmtPct(top.sharePcd)} do PCD).` },
+      {
+        kind: turnoverPcd > turnoverGeral ? "bad" : "good",
+        text: `Turnover PCD ${fmtPct(turnoverPcd)} vs geral ${fmtPct(turnoverGeral)}.`,
+      },
+      {
+        kind: "info",
+        text: `% PCD em posições de liderança: ${fmtInt(liderPcd)} ÷ ${fmtInt(liderTotal)} = ${fmtPct(liderTotal ? liderPcd / liderTotal : 0)}.`,
+      },
+    ].filter(Boolean),
   };
 }
 
@@ -227,7 +247,7 @@ function paintKpis(k) {
   tGap.textContent = k.gapQtd > 0 ? `Faltam ~${qtd} PCD` : k.gapQtd < 0 ? `Excedente ~${qtd} PCD` : "Na meta";
   tGap.className = `trend ${k.gapPp < 0 ? "neg" : "pos"}`;
   document.getElementById("kLid").textContent = fmtPct(k.pctPcdEmLideranca);
-  document.getElementById("tLid").textContent = `${fmtInt(k.liderPcd)} PCD ÷ ${fmtInt(k.liderTotal)} lideranças`;
+  document.getElementById("tLid").textContent = `${fmtInt(k.liderPcd)} em liderança ÷ ${fmtInt(k.liderTotal)} lideranças`;
   document.getElementById("kAdm").textContent = fmtInt(k.admissoes);
   document.getElementById("kDes").textContent = fmtInt(k.desligamentos);
   document.getElementById("kPro").textContent = fmtInt(k.promocoes);
@@ -377,7 +397,7 @@ function paintCharts(data) {
       maintainAspectRatio: false,
       plugins: { legend: { display: false } },
       scales: {
-        x: { ticks: { ...tick, callback: (v) => v + "%" }, grid: { color: grid } },
+        x: { ticks: { ...tick, callback: (v) => fmtPctTick(v) }, grid: { color: grid } },
         y: { ticks: { ...tick, autoSkip: false, font: { ...tick.font, size: 10 } }, grid: { display: false } },
       },
       ...clickArea,
@@ -538,7 +558,7 @@ function paintCharts(data) {
       plugins: { legend: { display: false } },
       scales: {
         x: { ticks: tick, grid: { display: false } },
-        y: { ticks: { ...tick, callback: (v) => v + "%" }, grid: { color: grid }, beginAtZero: true },
+        y: { ticks: { ...tick, callback: (v) => fmtPctTick(v) }, grid: { color: grid }, beginAtZero: true },
       },
     },
   });
@@ -549,7 +569,10 @@ function render() {
   paintKpis(view.kpis);
   paintTable(view.areas);
   paintClassTable(view.classificacao);
-  document.getElementById("insightList").innerHTML = view.insights.map((t) => `<li>${t}</li>`).join("");
+  document.getElementById("insightScope").textContent = `Filtros: ${view.recorte}`;
+  document.getElementById("insightList").innerHTML = view.insights
+    .map((t) => `<li class="ins-${t.kind}">${t.text}</li>`)
+    .join("");
   paintCharts(view);
 }
 

@@ -127,8 +127,8 @@ body {
   padding: 7px 6px; border-bottom: 1px solid #e8eef5; font-weight: 700; color: var(--text);
 }
 .rank-table tr:nth-child(even) td { background: #f5f8fc; }
-.gap-pos { color: var(--good); font-weight: 800; }
-.gap-neg { color: var(--bad); font-weight: 800; }
+.gap-pos { color: var(--good); font-weight: 800; background: #e8f8ef !important; }
+.gap-neg { color: var(--bad); font-weight: 800; background: #fdecea !important; }
 
 .donut-block { display: flex; align-items: center; gap: 8px; min-height: 190px; }
 .donut-box { position: relative; width: 120px; height: 120px; flex-shrink: 0; }
@@ -151,6 +151,8 @@ body {
   padding: 10px 12px; background: #f3f7fb; border-left: 4px solid var(--blue);
   border-radius: 8px; font-size: 12px; font-weight: 700; color: var(--muted); line-height: 1.4;
 }
+.insights li.ins-good { border-left-color: var(--good); background: #eefaf3; }
+.insights li.ins-bad { border-left-color: var(--bad); background: #fdf1ef; }
 
 @media (max-width: 1200px) {
   .kpis { grid-template-columns: repeat(3, 1fr); }
