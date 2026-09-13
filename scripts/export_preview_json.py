@@ -263,16 +263,49 @@ def main():
         "insights": insights,
         "filtros": {
             "plantas": sorted(ativos["Planta"].unique().tolist()),
-            "diretorias": sorted(ativos["Diretoria"].unique().tolist()),
             "areas": AREAS,
             "turnos": TURNO_ORDER,
             "meses": [f"{i:02d}" for i in range(1, 13)],
         },
+        "colab": [
+            {
+                "p": r["Planta"],
+                "a": r["Área"],
+                "t": r["Turno"],
+                "pcd": 1 if r["PCD"] == "Sim" else 0,
+                "lid": 1 if r["Liderança"] == "Sim" else 0,
+                "cls": "Blue Collar" if r["Classificação"] == "Blue Collar" else "White Collar",
+                "tipo": r["Tipo de Deficiência"],
+                "adm": pd.to_datetime(r["Data de Admissão"]).strftime("%Y-%m-%d"),
+            }
+            for _, r in ativos.iterrows()
+        ],
+        "mov": [
+            {
+                "k": r["Tipo Movimento"],
+                "pcd": 1 if r["PCD"] == "Sim" else 0,
+                "p": r["Planta"],
+                "a": r["Oficina"] if pd.notna(r["Oficina"]) else r["Área"],
+                "t": r["Turno"],
+                "ym": pd.to_datetime(r["Data Movimento"]).strftime("%Y-%m"),
+            }
+            for _, r in mov.iterrows()
+        ],
+        "hist": [
+            {
+                "ym": str(r["AnoMês"]),
+                "p": r["Planta"],
+                "a": r["Oficina"],
+                "hc": int(r["HC Total"]),
+                "pcd": int(r["HC PCD"]),
+            }
+            for _, r in hist.iterrows()
+        ],
     }
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
-    OUT.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"Wrote {OUT} | areas={len(area_rows)} | gapQtd={gap_qtd:.1f}")
+    OUT.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+    print(f"Wrote {OUT} | areas={len(area_rows)} | colab={len(payload['colab'])} | mov={len(payload['mov'])}")
 
 
 if __name__ == "__main__":
