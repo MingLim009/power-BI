@@ -52,7 +52,7 @@ Usar **Bookmarks** + botão para abrir/fechar o painel lateral (padrão executiv
 | GAP oficina | Bar | Oficina + `GAP Meta Realizado` (no snapshot) ou `GAP Historico` |
 | Adm x Deslig | Clustered bar | Oficina + `Admissoes PCD`, `Desligamentos PCD` |
 | Tipo deficiência | Donut | `Tipo de Deficiência` + contagem PCD ativos |
-| Blue x White | Donut ou 100% stacked | `Pct PCD Blue Collar`, `Pct PCD White Collar` |
+| Blue x White | Tabela + barras | Classificação, HC, PCD, % PCD (não só absoluto) |
 | Promoções / mov. | Cards ou bar | `Promocoes PCD`, `Movimentacoes Internas PCD` |
 | Tempo empresa | Card / histogram | `Tempo Medio Empresa PCD Anos` |
 | Liderança | Card | `Pct PCD em Lideranca` |

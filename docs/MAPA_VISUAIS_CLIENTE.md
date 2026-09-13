@@ -20,7 +20,7 @@
 | 16 | Promoções PCD | Card |
 | 17 | Movimentações Internas PCD | Card |
 | 18 | Turnover PCD × Geral | Barras comparativas |
-| 19 | Blue Collar × White Collar | Barras HC/PCD (+ % no tooltip) |
+| 19 | Blue Collar × White Collar | Tabela Classificação / HC / PCD / % PCD + barras |
 | 20 | % PCD em liderança | Card: PCD líderes ÷ total de cargos de liderança |
 | 21 | Meta × Realizado | Linha dupla |
 | 22 | Principais Destaques | Cards/texto de insights (gaps e concentrações) |

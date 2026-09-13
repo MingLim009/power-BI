@@ -228,6 +228,19 @@ function paintKpis(k) {
   document.getElementById("tTurn").textContent = `Geral ${fmtPct(k.turnoverGeral)}`;
 }
 
+function paintClassTable(rows) {
+  document.getElementById("classBody").innerHTML = rows
+    .map(
+      (r) => `<tr>
+        <td>${r.nome}</td>
+        <td>${fmtInt(r.hc)}</td>
+        <td>${fmtInt(r.hcPcd)}</td>
+        <td>${fmtPct(r.pct)}</td>
+      </tr>`
+    )
+    .join("");
+}
+
 function paintTable(rows) {
   document.getElementById("areaBody").innerHTML = rows
     .map((r) => {
@@ -499,6 +512,7 @@ function render() {
   const view = compute();
   paintKpis(view.kpis);
   paintTable(view.areas);
+  paintClassTable(view.classificacao);
   document.getElementById("insightList").innerHTML = view.insights.map((t) => `<li>${t}</li>`).join("");
   paintCharts(view);
 }
