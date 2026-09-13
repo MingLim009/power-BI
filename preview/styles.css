@@ -101,7 +101,7 @@ body {
 .chart-h.short { height: 180px; }
 .chart-h canvas { width: 100% !important; height: 100% !important; }
 
-.table-scroll { overflow: auto; max-height: 300px; }
+.table-scroll { overflow: visible; max-height: none; }
 .rank-table { width: 100%; border-collapse: collapse; font-size: 12px; }
 .rank-table thead th {
   background: var(--head); color: #fff; font-weight: 800; text-align: left;

@@ -146,7 +146,7 @@ function paintCharts(data) {
       maintainAspectRatio: false,
       plugins: { legend: { labels: { ...tick, boxWidth: 10 } } },
       scales: {
-        x: { ticks: { ...tick, maxRotation: 40, font: { ...tick.font, size: 10 } }, grid: { display: false } },
+        x: { ticks: { ...tick, maxRotation: 45, autoSkip: false, font: { ...tick.font, size: 10 } }, grid: { display: false } },
         y: { ticks: tick, grid: { color: grid }, beginAtZero: true },
       },
     },
@@ -171,7 +171,7 @@ function paintCharts(data) {
       plugins: { legend: { display: false } },
       scales: {
         x: { ticks: { ...tick, callback: (v) => v + "%" }, grid: { color: grid } },
-        y: { ticks: { ...tick, font: { ...tick.font, size: 10 } }, grid: { display: false } },
+        y: { ticks: { ...tick, autoSkip: false, font: { ...tick.font, size: 10 } }, grid: { display: false } },
       },
     },
   });
