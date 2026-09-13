@@ -28,6 +28,14 @@ body {
 }
 
 .page { max-width: 1560px; margin: 0 auto; padding: 12px 14px 20px; }
+.band {
+  margin: 14px 0 8px;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--navy);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
 
 .topbar {
   display: flex; flex-wrap: wrap; align-items: flex-end; gap: 10px;
@@ -71,7 +79,7 @@ body {
   display: grid; place-items: center; font-size: 11px; font-weight: 800; flex-shrink: 0;
 }
 .lbl { font-size: 10px; font-weight: 800; color: var(--muted); text-transform: uppercase; }
-.val { font-size: 24px; font-weight: 800; color: var(--navy); line-height: 1.1; letter-spacing: -0.02em; }
+.val { font-size: 32px; font-weight: 800; color: var(--navy); line-height: 1.05; letter-spacing: -0.03em; }
 .val.sm { font-size: 20px; }
 .val.neg { color: var(--bad); }
 .val.pos { color: var(--good); }

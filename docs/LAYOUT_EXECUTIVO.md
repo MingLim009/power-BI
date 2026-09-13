@@ -5,6 +5,12 @@ Canvas sugerido: **1920 × 1080** (1 página principal). Tema: azul `#0B3A5B` / 
 
 ## Hierarquia (primeiro olhar → detalhe)
 
+1. **Topo** — KPIs (HC, PCD, %, Meta, GAP, liderança)  
+2. **Centro** — análises (evolução, meta × realizado, admissões × desligamentos, área)  
+3. **Base** — detalhes (movimentação, tipo, turno, tenure, classificação, destaques)
+
+Gráficos 2D, sem 3D. HC = azul claro e PCD = azul-marinho em todas as comparações. Verde/vermelho só em GAP e desempenho.
+
 ```
 ┌─ [LOGO 160×48] ── Segmentadores principais ────────── [botão Filtros+] ─┐
 ├─ KPI │ KPI │ KPI │ KPI │ KPI │ Gauge Meta/% │ (cards)                    │

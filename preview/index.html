@@ -24,12 +24,12 @@
       <button type="button" class="btn-more" id="btnMore">Filtros +</button>
     </header>
     <div class="more-box" id="moreBox" hidden>
-      Filtros do topo e clique em Área/Turno atualizam KPIs e gráficos. No Power BI: cross-filter nativo + Gerência, Classificação, Tipo, PCD, Status, Liderança.
+      Filtros e clique em Área/Turno atualizam KPIs e gráficos. No Power BI: cross-filter nativo.
     </div>
 
-    <!-- KPIs principais -->
+    <p class="band">Indicadores principais</p>
     <section class="kpis">
-      <article class="kpi" title="Valor exato pode ser ajustado na medida DAX">
+      <article class="kpi">
         <div class="ico">HC</div>
         <div>
           <div class="lbl">HC Total</div>
@@ -79,7 +79,52 @@
       </article>
     </section>
 
-    <!-- Movimentação KPIs -->
+    <p class="band">Análises</p>
+    <section class="grid-2">
+      <article class="card">
+        <h2>Evolução da % PCD</h2>
+        <div class="chart-h mid"><canvas id="chartEvol"></canvas></div>
+      </article>
+      <article class="card">
+        <h2>Meta × Realizado</h2>
+        <div class="chart-h mid"><canvas id="chartMeta"></canvas></div>
+      </article>
+    </section>
+
+    <section class="grid-full">
+      <article class="card">
+        <h2>Admissões PCD × Desligamentos PCD</h2>
+        <div class="chart-h wide"><canvas id="chartMovMes"></canvas></div>
+      </article>
+    </section>
+
+    <section class="grid-2b">
+      <article class="card">
+        <h2>PCD por Área — HC × PCD</h2>
+        <div class="chart-h tall"><canvas id="chartArea"></canvas></div>
+      </article>
+      <article class="card">
+        <h2>Resumo por Área</h2>
+        <div class="table-scroll">
+          <table class="rank-table">
+            <thead>
+              <tr>
+                <th>Área</th>
+                <th>HC</th>
+                <th>PCD</th>
+                <th>% PCD</th>
+                <th>GAP</th>
+                <th>Adm.</th>
+                <th>Desl.</th>
+              </tr>
+            </thead>
+            <tbody id="areaBody"></tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+
+    <p class="band">Detalhes</p>
     <section class="kpis sm">
       <article class="kpi">
         <div>
@@ -125,53 +170,11 @@
       </article>
     </section>
 
-    <section class="grid-full">
-      <article class="card">
-        <h2>Admissões PCD × Desligamentos PCD — evolução mensal</h2>
-        <p class="sub">Identifica períodos de maior entrada e saída. Cards acima = total do período; gráfico = mês a mês.</p>
-        <div class="chart-h wide"><canvas id="chartMovMes"></canvas></div>
-      </article>
-    </section>
-
-    <section class="grid-2">
+    <section class="grid-4">
       <article class="card">
         <h2>Representatividade PCD sobre HC</h2>
-        <div class="chart-h mid"><canvas id="chartRep"></canvas></div>
+        <div class="chart-h"><canvas id="chartRep"></canvas></div>
       </article>
-      <article class="card">
-        <h2>Evolução da % PCD</h2>
-        <div class="chart-h mid"><canvas id="chartEvol"></canvas></div>
-      </article>
-    </section>
-
-    <section class="grid-2b">
-      <article class="card">
-        <h2>PCD por Área — HC × PCD × %</h2>
-        <div class="chart-h tall"><canvas id="chartArea"></canvas></div>
-      </article>
-      <article class="card">
-        <h2>Resumo por Área</h2>
-        <p class="sub">9 áreas oficiais, incluindo Staff e Outras</p>
-        <div class="table-scroll">
-          <table class="rank-table">
-            <thead>
-              <tr>
-                <th>Área</th>
-                <th>HC</th>
-                <th>PCD</th>
-                <th>% PCD</th>
-                <th>GAP</th>
-                <th>Adm.</th>
-                <th>Desl.</th>
-              </tr>
-            </thead>
-            <tbody id="areaBody"></tbody>
-          </table>
-        </div>
-      </article>
-    </section>
-
-    <section class="grid-4">
       <article class="card">
         <h2>Distribuição de PCD por Área</h2>
         <div class="chart-h"><canvas id="chartDist"></canvas></div>
@@ -190,29 +193,24 @@
         <h2>PCD por Turno</h2>
         <div class="chart-h"><canvas id="chartTurno"></canvas></div>
       </article>
-      <article class="card">
-        <h2>Tempo de Empresa — PCD</h2>
-        <p class="sub">&lt;1 · 1–3 · 3–5 · &gt;5 anos</p>
-        <div class="chart-h"><canvas id="chartTenure"></canvas></div>
-      </article>
     </section>
 
-    <section class="grid-2">
+    <section class="grid-3">
+      <article class="card">
+        <h2>Tempo de Empresa — PCD</h2>
+        <div class="chart-h"><canvas id="chartTenure"></canvas></div>
+      </article>
       <article class="card">
         <h2>Blue Collar × White Collar</h2>
         <div class="chart-h"><canvas id="chartClass"></canvas></div>
       </article>
       <article class="card">
-        <h2>Meta × Realizado</h2>
-        <div class="chart-h"><canvas id="chartMeta"></canvas></div>
+        <h2>Turnover PCD × Geral</h2>
+        <div class="chart-h"><canvas id="chartTurnover"></canvas></div>
       </article>
     </section>
 
-    <section class="grid-2c">
-      <article class="card">
-        <h2>Turnover PCD × Turnover Geral</h2>
-        <div class="chart-h short"><canvas id="chartTurnover"></canvas></div>
-      </article>
+    <section class="grid-full">
       <article class="card insights">
         <h2>Principais Destaques</h2>
         <ul id="insightList"></ul>
