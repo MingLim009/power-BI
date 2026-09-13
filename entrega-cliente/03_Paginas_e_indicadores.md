@@ -7,7 +7,7 @@
 - Meta PCD
 - GAP (pontos percentuais e quantidade de PCD)
 - % PCD em liderança = PCD em liderança ÷ total de posições de liderança
-- Evolução da % PCD
+- Evolução mensal da % PCD (Jan, Fev, Mar, Abr…)
 - Meta × Realizado
 - Principais destaques
 

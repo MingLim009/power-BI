@@ -12,6 +12,7 @@ Chart.defaults.font.family = "Inter";
 Chart.defaults.font.weight = "700";
 Chart.defaults.animation = false;
 Chart.defaults.elements.bar.borderSkipped = false;
+const MESES_PT = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
 const META = 0.05;
 const FAIXAS = ["<1 ano", "1–3 anos", "3–5 anos", ">5 anos"];
 const REF = new Date("2026-08-31");
@@ -20,6 +21,12 @@ let RAW = null;
 const charts = {};
 
 const val = (id) => document.getElementById(id).value;
+
+function labelMes(ym, withYear) {
+  const m = Number(ym.slice(5, 7));
+  const nome = MESES_PT[m - 1] || ym;
+  return withYear ? `${nome}/${ym.slice(2, 4)}` : nome;
+}
 
 function tenureBand(iso) {
   const years = (REF - new Date(iso)) / (365.25 * 86400000);
@@ -269,7 +276,9 @@ function upsert(id, cfg) {
 }
 
 function paintCharts(data) {
-  const labelsE = data.evolucao.map((e) => e.anoMes.slice(5) + "/" + e.anoMes.slice(2, 4));
+  const anosEvol = new Set(data.evolucao.map((e) => e.anoMes.slice(0, 4)));
+  const evolucao = !val("fAno") && data.evolucao.length > 12 ? data.evolucao.slice(-12) : data.evolucao;
+  const labelsE = evolucao.map((e) => labelMes(e.anoMes, anosEvol.size > 1 && !val("fAno")));
   const clickArea = { onClick: (_, els, ch) => els[0] && toggleFilter("fArea", ch.data.labels[els[0].index]) };
   const clickTurno = { onClick: (_, els, ch) => els[0] && toggleFilter("fTurno", ch.data.labels[els[0].index]) };
 
@@ -288,12 +297,12 @@ function paintCharts(data) {
       labels: labelsE,
       datasets: [{
         label: "% PCD",
-        data: data.evolucao.map((e) => +(e.pct * 100).toFixed(2)),
+        data: evolucao.map((e) => +(e.pct * 100).toFixed(2)),
         borderColor: COLOR_BLUE,
         backgroundColor: "rgba(27,108,168,0.18)",
         fill: true,
-        tension: 0.4,
-        pointRadius: 0,
+        tension: 0.35,
+        pointRadius: 4,
         borderWidth: 2.5,
       }],
     },
@@ -302,7 +311,7 @@ function paintCharts(data) {
       maintainAspectRatio: false,
       plugins: { legend: { display: false } },
       scales: {
-        x: { ticks: { ...tick, maxTicksLimit: 10 }, grid: { display: false } },
+        x: { ticks: { ...tick, autoSkip: false }, grid: { display: false } },
         y: { ticks: { ...tick, callback: (v) => v + "%" }, grid: { color: grid } },
       },
     },
@@ -461,17 +470,17 @@ function paintCharts(data) {
       datasets: [
         {
           label: "Realizado",
-          data: data.evolucao.map((e) => +(e.pct * 100).toFixed(2)),
+          data: evolucao.map((e) => +(e.pct * 100).toFixed(2)),
           borderColor: COLOR_PCD,
           backgroundColor: "rgba(11,58,91,0.12)",
           fill: true,
           tension: 0.35,
-          pointRadius: 0,
+          pointRadius: 4,
           borderWidth: 2.5,
         },
         {
           label: "Meta",
-          data: data.evolucao.map((e) => +(e.meta * 100).toFixed(2)),
+          data: evolucao.map((e) => +(e.meta * 100).toFixed(2)),
           borderColor: COLOR_META,
           borderDash: [6, 4],
           pointRadius: 0,
@@ -484,7 +493,7 @@ function paintCharts(data) {
       maintainAspectRatio: false,
       plugins: { legend: { labels: { ...tick, boxWidth: 10 } } },
       scales: {
-        x: { ticks: { ...tick, maxTicksLimit: 8 }, grid: { display: false } },
+        x: { ticks: { ...tick, autoSkip: false }, grid: { display: false } },
         y: { ticks: { ...tick, callback: (v) => v + "%" }, grid: { color: grid } },
       },
     },
@@ -527,9 +536,11 @@ async function boot() {
   add("fArea", RAW.filtros.areas);
   add("fTurno", RAW.filtros.turnos);
   add("fMes", RAW.filtros.meses);
-  [...new Set(RAW.hist.map((e) => e.ym.slice(0, 4)))].forEach((y) => {
+  const anos = [...new Set(RAW.hist.map((e) => e.ym.slice(0, 4)))].sort();
+  anos.forEach((y) => {
     document.getElementById("fAno").insertAdjacentHTML("beforeend", `<option value="${y}">${y}</option>`);
   });
+  if (anos.length) document.getElementById("fAno").value = anos[anos.length - 1];
   ["fAno", "fMes", "fPlanta", "fArea", "fTurno"].forEach((id) => {
     document.getElementById(id).addEventListener("change", render);
   });

@@ -8,7 +8,7 @@
 | 4 | Meta PCD | Card |
 | 5 | GAP | Card: p.p. + qtd PCD (`GAP PP`, `GAP Qtd PCD`) |
 | 6 | Representatividade PCD sobre HC | Donut PCD × Não PCD |
-| 7 | Evolução da % PCD | Linha/área mensal |
+| 7 | Evolução da % PCD | Linha mensal (Jan, Fev, Mar…) + meta |
 | 8 | PCD por Área — HC × PCD × % | Barras agrupadas (9 áreas) |
 | 9 | Resumo por Área | Tabela: Área, HC, PCD, %, GAP, Adm, Desl |
 | 10 | Distribuição de PCD por Área | Barras horizontais (% do PCD) |
