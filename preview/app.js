@@ -1,6 +1,14 @@
-const fmtPct = (v) => `${(v * 100).toFixed(1).replace(".", ",")}%`;
+const fmtPct = (v) => `${(Math.round(Number(v) * 1000) / 10).toFixed(1).replace(".", ",")}%`;
+const toPct1 = (ratio) => Math.round(Number(ratio) * 1000) / 10;
+const fmtPctTick = (v) => `${(Math.round(Number(v) * 10) / 10).toFixed(1).replace(".", ",")}%`;
 const fmtInt = (v) => new Intl.NumberFormat("pt-BR").format(v);
 const fmtSigned = (v) => `${v > 0 ? "+" : ""}${fmtInt(v)}`;
+function pctAxis(values) {
+  const nums = values.map((v) => Math.round(Number(v) * 10) / 10);
+  const lo = Math.min(3.4, ...nums);
+  const hi = Math.max(5.0, ...nums);
+  return { min: Math.floor(lo / 0.4) * 0.4, max: Math.ceil(hi / 0.4) * 0.4, stepSize: 0.4 };
+}
 const COLOR_PCD = "#0b3a5b";
 const COLOR_HC = "#9ec4e4";
 const COLOR_BLUE = "#1b6ca8";
@@ -291,28 +299,47 @@ function paintCharts(data) {
     options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: "bottom", labels: { ...tick, boxWidth: 10 } } } },
   });
 
+  const pctReal = evolucao.map((e) => toPct1(e.pct));
+  const pctMeta = evolucao.map((e) => toPct1(e.meta));
+  const yPct = {
+    ...pctAxis([...pctReal, ...pctMeta]),
+    ticks: { ...tick, callback: (v) => fmtPctTick(v) },
+    grid: { color: grid },
+  };
+  const tipPct = { callbacks: { label: (c) => `${c.dataset.label}: ${fmtPctTick(c.parsed.y)}` } };
+
   upsert("chartEvol", {
     type: "line",
     data: {
       labels: labelsE,
-      datasets: [{
-        label: "% PCD",
-        data: evolucao.map((e) => +(e.pct * 100).toFixed(2)),
-        borderColor: COLOR_BLUE,
-        backgroundColor: "rgba(27,108,168,0.18)",
-        fill: true,
-        tension: 0.35,
-        pointRadius: 4,
-        borderWidth: 2.5,
-      }],
+      datasets: [
+        {
+          label: "% PCD realizado",
+          data: pctReal,
+          borderColor: COLOR_BLUE,
+          backgroundColor: "rgba(27,108,168,0.16)",
+          fill: true,
+          tension: 0.35,
+          pointRadius: 4,
+          borderWidth: 2.5,
+        },
+        {
+          label: "Meta PCD",
+          data: pctMeta,
+          borderColor: COLOR_META,
+          borderDash: [6, 4],
+          pointRadius: 0,
+          borderWidth: 2,
+        },
+      ],
     },
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      plugins: { legend: { display: false } },
+      plugins: { legend: { labels: { ...tick, boxWidth: 10 } }, tooltip: tipPct },
       scales: {
         x: { ticks: { ...tick, autoSkip: false }, grid: { display: false } },
-        y: { ticks: { ...tick, callback: (v) => v + "%" }, grid: { color: grid } },
+        y: yPct,
       },
     },
   });
@@ -469,8 +496,8 @@ function paintCharts(data) {
       labels: labelsE,
       datasets: [
         {
-          label: "Realizado",
-          data: evolucao.map((e) => +(e.pct * 100).toFixed(2)),
+          label: "% PCD realizado",
+          data: pctReal,
           borderColor: COLOR_PCD,
           backgroundColor: "rgba(11,58,91,0.12)",
           fill: true,
@@ -479,8 +506,8 @@ function paintCharts(data) {
           borderWidth: 2.5,
         },
         {
-          label: "Meta",
-          data: evolucao.map((e) => +(e.meta * 100).toFixed(2)),
+          label: "Meta PCD",
+          data: pctMeta,
           borderColor: COLOR_META,
           borderDash: [6, 4],
           pointRadius: 0,
@@ -491,10 +518,10 @@ function paintCharts(data) {
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      plugins: { legend: { labels: { ...tick, boxWidth: 10 } } },
+      plugins: { legend: { labels: { ...tick, boxWidth: 10 } }, tooltip: tipPct },
       scales: {
         x: { ticks: { ...tick, autoSkip: false }, grid: { display: false } },
-        y: { ticks: { ...tick, callback: (v) => v + "%" }, grid: { color: grid } },
+        y: yPct,
       },
     },
   });
