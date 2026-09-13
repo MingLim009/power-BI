@@ -1,9 +1,9 @@
 const fmtPct = (v) => `${(v * 100).toFixed(1).replace(".", ",")}%`;
 const fmtInt = (v) => new Intl.NumberFormat("pt-BR").format(v);
 const fmtSigned = (v) => `${v > 0 ? "+" : ""}${fmtInt(v)}`;
-const C = ["#8ec8e8", "#6aaecf", "#4a8eae", "#c5cdd4", "#e8b36a", "#9aa4ad", "#6ed39a", "#a78bfa", "#5eead4"];
-const tick = { color: "#c5cdd4", font: { family: "Inter", size: 11, weight: "700" } };
-const grid = "#2a313a";
+const C = ["#0b3a5b", "#1b6ca8", "#3d8fc9", "#9ec4e4", "#e67e22", "#5d6d7e", "#1e8449", "#7d3c98", "#16a085"];
+const tick = { color: "#102033", font: { family: "Inter", size: 11, weight: "700" } };
+const grid = "#e8eef5";
 
 async function boot() {
   const data = await (await fetch("data.json")).json();
@@ -24,7 +24,6 @@ function fillFilters(data) {
     items.forEach((v) => el.insertAdjacentHTML("beforeend", `<option value="${v}">${v}</option>`));
   };
   add("fPlanta", data.filtros.plantas);
-  add("fDiretoria", data.filtros.diretorias);
   add("fArea", data.filtros.areas);
   add("fTurno", data.filtros.turnos);
   add("fMes", data.filtros.meses);
@@ -96,7 +95,7 @@ function paintCharts(data) {
     type: "doughnut",
     data: {
       labels: data.representatividade.map((r) => r.nome),
-      datasets: [{ data: data.representatividade.map((r) => r.n), backgroundColor: ["#8ec8e8", "#4a5560"], borderWidth: 0, cutout: "62%" }],
+      datasets: [{ data: data.representatividade.map((r) => r.n), backgroundColor: ["#0b3a5b", "#9ec4e4"], borderWidth: 0, cutout: "62%" }],
     },
     options: {
       responsive: true,
@@ -113,8 +112,8 @@ function paintCharts(data) {
       datasets: [{
         label: "% PCD",
         data: data.evolucao.map((e) => +(e.pct * 100).toFixed(2)),
-        borderColor: "#8ec8e8",
-        backgroundColor: "rgba(142,200,232,0.16)",
+        borderColor: "#1b6ca8",
+        backgroundColor: "rgba(27,108,168,0.18)",
         fill: true,
         tension: 0.4,
         pointRadius: 0,
@@ -138,8 +137,8 @@ function paintCharts(data) {
     data: {
       labels: data.areas.map((a) => a.area),
       datasets: [
-        { label: "HC", data: data.areas.map((a) => a.hc), backgroundColor: "#4a5560", borderRadius: 3 },
-        { label: "PCD", data: data.areas.map((a) => a.hcPcd), backgroundColor: "#8ec8e8", borderRadius: 3 },
+        { label: "HC", data: data.areas.map((a) => a.hc), backgroundColor: "#9ec4e4", borderRadius: 3 },
+        { label: "PCD", data: data.areas.map((a) => a.hcPcd), backgroundColor: "#0b3a5b", borderRadius: 3 },
       ],
     },
     options: {
@@ -161,7 +160,7 @@ function paintCharts(data) {
       datasets: [{
         label: "% do PCD",
         data: data.areas.map((a) => +(a.sharePcd * 100).toFixed(1)),
-        backgroundColor: "#8ec8e8",
+        backgroundColor: "#1b6ca8",
         borderRadius: 4,
       }],
     },
@@ -198,8 +197,8 @@ function paintCharts(data) {
     data: {
       labels: data.turnos.map((t) => t.turno),
       datasets: [
-        { label: "HC", data: data.turnos.map((t) => t.hc), backgroundColor: "#4a5560", borderRadius: 4 },
-        { label: "PCD", data: data.turnos.map((t) => t.hcPcd), backgroundColor: "#8ec8e8", borderRadius: 4 },
+        { label: "HC", data: data.turnos.map((t) => t.hc), backgroundColor: "#9ec4e4", borderRadius: 4 },
+        { label: "PCD", data: data.turnos.map((t) => t.hcPcd), backgroundColor: "#0b3a5b", borderRadius: 4 },
       ],
     },
     options: {
@@ -218,7 +217,7 @@ function paintCharts(data) {
     type: "bar",
     data: {
       labels: data.tenure.map((t) => t.faixa),
-      datasets: [{ label: "PCD", data: data.tenure.map((t) => t.n), backgroundColor: "#6aaecf", borderRadius: 4 }],
+      datasets: [{ label: "PCD", data: data.tenure.map((t) => t.n), backgroundColor: "#3d8fc9", borderRadius: 4 }],
     },
     options: {
       responsive: true,
@@ -238,8 +237,8 @@ function paintCharts(data) {
     data: {
       labels: lm.map((m) => m.anoMes.slice(5) + "/" + m.anoMes.slice(2, 4)),
       datasets: [
-        { label: "Admissões", data: lm.map((m) => m.admissoes), backgroundColor: "#6ed39a", borderRadius: 3 },
-        { label: "Desligamentos", data: lm.map((m) => m.desligamentos), backgroundColor: "#e8b36a", borderRadius: 3 },
+        { label: "Admissões", data: lm.map((m) => m.admissoes), backgroundColor: "#1e8449", borderRadius: 3 },
+        { label: "Desligamentos", data: lm.map((m) => m.desligamentos), backgroundColor: "#e67e22", borderRadius: 3 },
       ],
     },
     options: {
@@ -259,8 +258,8 @@ function paintCharts(data) {
     data: {
       labels: data.classificacao.map((c) => c.nome),
       datasets: [
-        { label: "HC", data: data.classificacao.map((c) => c.hc), backgroundColor: "#4a5560", borderRadius: 4 },
-        { label: "PCD", data: data.classificacao.map((c) => c.hcPcd), backgroundColor: "#8ec8e8", borderRadius: 4 },
+        { label: "HC", data: data.classificacao.map((c) => c.hc), backgroundColor: "#9ec4e4", borderRadius: 4 },
+        { label: "PCD", data: data.classificacao.map((c) => c.hcPcd), backgroundColor: "#0b3a5b", borderRadius: 4 },
       ],
     },
     options: {
@@ -293,8 +292,8 @@ function paintCharts(data) {
         {
           label: "Realizado",
           data: data.evolucao.map((e) => +(e.pct * 100).toFixed(2)),
-          borderColor: "#8ec8e8",
-          backgroundColor: "rgba(142,200,232,0.14)",
+          borderColor: "#0b3a5b",
+          backgroundColor: "rgba(11,58,91,0.12)",
           fill: true,
           tension: 0.35,
           pointRadius: 0,
@@ -303,7 +302,7 @@ function paintCharts(data) {
         {
           label: "Meta",
           data: data.evolucao.map((e) => +(e.meta * 100).toFixed(2)),
-          borderColor: "#e8b36a",
+          borderColor: "#e67e22",
           borderDash: [6, 4],
           pointRadius: 0,
           borderWidth: 2,
@@ -329,7 +328,7 @@ function paintCharts(data) {
       datasets: [{
         label: "Taxa",
         data: data.turnover.map((t) => +(t.taxa * 100).toFixed(2)),
-        backgroundColor: ["#8ec8e8", "#4a5560"],
+        backgroundColor: ["#0b3a5b", "#3d8fc9"],
         borderRadius: 6,
         barThickness: 48,
       }],
@@ -347,5 +346,5 @@ function paintCharts(data) {
 }
 
 boot().catch((e) => {
-  document.body.innerHTML = `<p style="padding:24px;font-family:Inter,sans-serif;font-weight:800;color:#f4f6f7;background:#0a0c0e">Erro data.json<br>${e}</p>`;
+  document.body.innerHTML = `<p style="padding:24px;font-family:Inter,sans-serif;font-weight:800;color:#0b3a5b">Erro data.json<br>${e}</p>`;
 });

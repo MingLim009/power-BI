@@ -20,7 +20,8 @@ Canvas sugerido: **1920 × 1080** (1 página principal). Tema: azul `#0B3A5B` / 
 
 ## Filtros
 
-**Visíveis (barra superior):** Ano | Mês | Planta | Diretoria | Área | Turno  
+**Visíveis (barra superior):** Ano | Mês | Planta | Área | Turno  
+(Diretoria removida do topo — o recorte oficial é por Área)  
 
 **Painel / botão “Filtros” (bookmark + selection pane):**  
 Gerência, Classificação, Tipo de Deficiência, PCD, Status, Liderança  
