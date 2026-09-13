@@ -92,7 +92,9 @@ def main():
         .size()
         .rename("desligamentos")
     )
-    ev = pd.concat([ev_adm, ev_des], axis=1).fillna(0).astype(int).reset_index().sort_values("AnoMês")
+    ev = pd.concat([ev_adm, ev_des], axis=1).fillna(0).astype(int)
+    meses_full = pd.period_range("2024-01", "2026-08", freq="M").strftime("%Y-%m")
+    ev = ev.reindex(meses_full, fill_value=0).reset_index().rename(columns={"index": "AnoMês"})
     # vs período anterior (último vs penúltimo mês com dado, ou totais)
     if len(ev) >= 2:
         adm_vs = int(ev.iloc[-1]["admissoes"] - ev.iloc[-2]["admissoes"])

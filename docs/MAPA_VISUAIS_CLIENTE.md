@@ -15,8 +15,8 @@
 | 11 | PCD por Tipo de Deficiência | Donut + legenda |
 | 12 | PCD por Turno | Barras 1º/2º/3º/Administrativo |
 | 13 | Tempo de Empresa — PCD | Barras &lt;1, 1–3, 3–5, &gt;5 |
-| 14 | Admissões PCD | Card + vs período anterior + série mensal |
-| 15 | Desligamentos PCD | Card + vs período anterior + série mensal |
+| 14 | Admissões PCD | Card (total) + gráfico mensal Admissões × Desligamentos |
+| 15 | Desligamentos PCD | Card (total) + gráfico mensal Admissões × Desligamentos |
 | 16 | Promoções PCD | Card |
 | 17 | Movimentações Internas PCD | Card |
 | 18 | Turnover PCD × Geral | Barras comparativas |

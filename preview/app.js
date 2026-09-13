@@ -230,15 +230,26 @@ function paintCharts(data) {
     },
   });
 
-  // Mov mensal
+  // Mov mensal — Admissões x Desligamentos (evolução)
   const lm = data.movMensal.slice(-18);
   new Chart(document.getElementById("chartMovMes"), {
     type: "bar",
     data: {
       labels: lm.map((m) => m.anoMes.slice(5) + "/" + m.anoMes.slice(2, 4)),
       datasets: [
-        { label: "Admissões", data: lm.map((m) => m.admissoes), backgroundColor: "#1e8449", borderRadius: 3 },
-        { label: "Desligamentos", data: lm.map((m) => m.desligamentos), backgroundColor: "#e67e22", borderRadius: 3 },
+        { type: "bar", label: "Admissões PCD", data: lm.map((m) => m.admissoes), backgroundColor: "#1b6ca8", borderRadius: 3, order: 2 },
+        { type: "bar", label: "Desligamentos PCD", data: lm.map((m) => m.desligamentos), backgroundColor: "#9ec4e4", borderRadius: 3, order: 2 },
+        {
+          type: "line",
+          label: "Saldo (Adm − Desl)",
+          data: lm.map((m) => m.admissoes - m.desligamentos),
+          borderColor: "#0b3a5b",
+          backgroundColor: "#0b3a5b",
+          tension: 0.3,
+          pointRadius: 3,
+          borderWidth: 2,
+          order: 1,
+        },
       ],
     },
     options: {
@@ -246,7 +257,7 @@ function paintCharts(data) {
       maintainAspectRatio: false,
       plugins: { legend: { labels: { ...tick, boxWidth: 10 } } },
       scales: {
-        x: { ticks: { ...tick, maxTicksLimit: 8 }, grid: { display: false } },
+        x: { ticks: { ...tick, maxTicksLimit: 12 }, grid: { display: false } },
         y: { ticks: tick, grid: { color: grid }, beginAtZero: true },
       },
     },

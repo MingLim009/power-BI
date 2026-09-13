@@ -11,10 +11,10 @@
     "desligamentos": 3,
     "promocoes": 1,
     "movInternas": 6,
-    "admissoesMes": 1,
-    "desligamentosMes": 1,
+    "admissoesMes": 0,
+    "desligamentosMes": 0,
     "admissoesVsAnt": 0,
-    "desligamentosVsAnt": 1,
+    "desligamentosVsAnt": 0,
     "turnoverPcd": 0.06,
     "turnoverGeral": 0.0879,
     "tenureYears": 4.45,
@@ -223,153 +223,18 @@
   ],
   "movMensal": [
     {
-      "anoMes": "2018-09",
-      "admissoes": 1,
+      "anoMes": "2024-01",
+      "admissoes": 0,
       "desligamentos": 0
     },
     {
-      "anoMes": "2018-10",
-      "admissoes": 1,
+      "anoMes": "2024-02",
+      "admissoes": 0,
       "desligamentos": 0
     },
     {
-      "anoMes": "2018-12",
-      "admissoes": 4,
-      "desligamentos": 0
-    },
-    {
-      "anoMes": "2019-02",
-      "admissoes": 1,
-      "desligamentos": 0
-    },
-    {
-      "anoMes": "2019-07",
-      "admissoes": 1,
-      "desligamentos": 0
-    },
-    {
-      "anoMes": "2019-11",
-      "admissoes": 1,
-      "desligamentos": 0
-    },
-    {
-      "anoMes": "2019-12",
-      "admissoes": 2,
-      "desligamentos": 0
-    },
-    {
-      "anoMes": "2020-02",
-      "admissoes": 1,
-      "desligamentos": 0
-    },
-    {
-      "anoMes": "2020-03",
-      "admissoes": 2,
-      "desligamentos": 0
-    },
-    {
-      "anoMes": "2020-05",
-      "admissoes": 1,
-      "desligamentos": 0
-    },
-    {
-      "anoMes": "2020-09",
-      "admissoes": 1,
-      "desligamentos": 0
-    },
-    {
-      "anoMes": "2020-10",
-      "admissoes": 2,
-      "desligamentos": 0
-    },
-    {
-      "anoMes": "2020-11",
-      "admissoes": 1,
-      "desligamentos": 0
-    },
-    {
-      "anoMes": "2021-03",
-      "admissoes": 2,
-      "desligamentos": 0
-    },
-    {
-      "anoMes": "2021-04",
-      "admissoes": 1,
-      "desligamentos": 0
-    },
-    {
-      "anoMes": "2021-05",
-      "admissoes": 1,
-      "desligamentos": 0
-    },
-    {
-      "anoMes": "2021-09",
-      "admissoes": 1,
-      "desligamentos": 0
-    },
-    {
-      "anoMes": "2021-12",
-      "admissoes": 1,
-      "desligamentos": 0
-    },
-    {
-      "anoMes": "2022-02",
-      "admissoes": 1,
-      "desligamentos": 0
-    },
-    {
-      "anoMes": "2022-03",
-      "admissoes": 1,
-      "desligamentos": 0
-    },
-    {
-      "anoMes": "2022-05",
-      "admissoes": 3,
-      "desligamentos": 0
-    },
-    {
-      "anoMes": "2022-09",
-      "admissoes": 2,
-      "desligamentos": 0
-    },
-    {
-      "anoMes": "2022-10",
-      "admissoes": 1,
-      "desligamentos": 0
-    },
-    {
-      "anoMes": "2022-12",
-      "admissoes": 1,
-      "desligamentos": 0
-    },
-    {
-      "anoMes": "2023-01",
-      "admissoes": 1,
-      "desligamentos": 0
-    },
-    {
-      "anoMes": "2023-04",
-      "admissoes": 1,
-      "desligamentos": 0
-    },
-    {
-      "anoMes": "2023-06",
-      "admissoes": 1,
-      "desligamentos": 0
-    },
-    {
-      "anoMes": "2023-07",
-      "admissoes": 1,
-      "desligamentos": 0
-    },
-    {
-      "anoMes": "2023-09",
-      "admissoes": 1,
-      "desligamentos": 0
-    },
-    {
-      "anoMes": "2023-12",
-      "admissoes": 1,
+      "anoMes": "2024-03",
+      "admissoes": 0,
       "desligamentos": 0
     },
     {
@@ -378,8 +243,33 @@
       "desligamentos": 0
     },
     {
+      "anoMes": "2024-05",
+      "admissoes": 0,
+      "desligamentos": 0
+    },
+    {
+      "anoMes": "2024-06",
+      "admissoes": 0,
+      "desligamentos": 0
+    },
+    {
+      "anoMes": "2024-07",
+      "admissoes": 0,
+      "desligamentos": 0
+    },
+    {
+      "anoMes": "2024-08",
+      "admissoes": 0,
+      "desligamentos": 0
+    },
+    {
       "anoMes": "2024-09",
       "admissoes": 1,
+      "desligamentos": 0
+    },
+    {
+      "anoMes": "2024-10",
+      "admissoes": 0,
       "desligamentos": 0
     },
     {
@@ -408,8 +298,23 @@
       "desligamentos": 1
     },
     {
+      "anoMes": "2025-04",
+      "admissoes": 0,
+      "desligamentos": 0
+    },
+    {
+      "anoMes": "2025-05",
+      "admissoes": 0,
+      "desligamentos": 0
+    },
+    {
       "anoMes": "2025-06",
       "admissoes": 1,
+      "desligamentos": 0
+    },
+    {
+      "anoMes": "2025-07",
+      "admissoes": 0,
       "desligamentos": 0
     },
     {
@@ -418,14 +323,44 @@
       "desligamentos": 0
     },
     {
+      "anoMes": "2025-09",
+      "admissoes": 0,
+      "desligamentos": 0
+    },
+    {
+      "anoMes": "2025-10",
+      "admissoes": 0,
+      "desligamentos": 0
+    },
+    {
+      "anoMes": "2025-11",
+      "admissoes": 0,
+      "desligamentos": 0
+    },
+    {
+      "anoMes": "2025-12",
+      "admissoes": 0,
+      "desligamentos": 0
+    },
+    {
       "anoMes": "2026-01",
       "admissoes": 1,
+      "desligamentos": 0
+    },
+    {
+      "anoMes": "2026-02",
+      "admissoes": 0,
       "desligamentos": 0
     },
     {
       "anoMes": "2026-03",
       "admissoes": 1,
       "desligamentos": 1
+    },
+    {
+      "anoMes": "2026-04",
+      "admissoes": 0,
+      "desligamentos": 0
     },
     {
       "anoMes": "2026-05",
@@ -436,6 +371,16 @@
       "anoMes": "2026-06",
       "admissoes": 1,
       "desligamentos": 1
+    },
+    {
+      "anoMes": "2026-07",
+      "admissoes": 0,
+      "desligamentos": 0
+    },
+    {
+      "anoMes": "2026-08",
+      "admissoes": 0,
+      "desligamentos": 0
     }
   ],
   "evolucao": [
