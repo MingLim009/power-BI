@@ -199,7 +199,7 @@ def main():
         f"Melhor área: {best['area']} ({best['pct']*100:.1f}% PCD, GAP {best['gap']*100:.1f} p.p.).",
         f"Maior concentração PCD: {top_conc['area']} ({top_conc['hcPcd']} pessoas, {top_conc['sharePcd']*100:.0f}% do PCD).",
         f"Turnover PCD {turnover_pcd*100:.1f}% vs geral {turnover_geral*100:.1f}%.",
-        f"Liderança: {lider_pcd} PCD em posições de liderança ({pct_lider_sobre_pcd*100:.1f}% dos PCD).",
+        f"Liderança: {lider_pcd} PCD em {lider_total} posições de liderança ({pct_pcd_em_lideranca*100:.1f}%).",
     ]
 
     payload = {

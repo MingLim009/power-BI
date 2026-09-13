@@ -47,8 +47,8 @@ function paintKpis(k) {
     k.gapQtd > 0 ? `Faltam ~${qtd} PCD` : k.gapQtd < 0 ? `Excedente ~${qtd} PCD` : "Na meta";
   tGap.className = `trend ${k.gapPp < 0 ? "neg" : "pos"}`;
 
-  document.getElementById("kLid").textContent = fmtPct(k.pctLiderancaSobrePcd);
-  document.getElementById("tLid").textContent = `${k.liderPcd} de ${k.hcPcd} PCD`;
+  document.getElementById("kLid").textContent = fmtPct(k.pctPcdEmLideranca);
+  document.getElementById("tLid").textContent = `${fmtInt(k.liderPcd)} PCD ÷ ${fmtInt(k.liderTotal)} lideranças`;
 
   document.getElementById("kAdm").textContent = fmtInt(k.admissoes);
   document.getElementById("kDes").textContent = fmtInt(k.desligamentos);

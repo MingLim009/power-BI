@@ -87,8 +87,8 @@ Pct PCD Blue Collar = DIVIDE ( [HC PCD Blue Collar], [HC Blue Collar] )
 Pct PCD White Collar = DIVIDE ( [HC PCD White Collar], [HC White Collar] )
 
 HC PCD Lideranca = CALCULATE ( [HC PCD], COLABORADORES[Liderança] = "Sim" )
-Pct PCD sobre PCD em Lideranca = DIVIDE ( [HC PCD Lideranca], [HC PCD] )
 HC Lideranca Total = CALCULATE ( [HC Total], COLABORADORES[Liderança] = "Sim" )
+// Indicador oficial: PCD em liderança ÷ total de posições de liderança
 Pct PCD em posicoes de Lideranca = DIVIDE ( [HC PCD Lideranca], [HC Lideranca Total] )
 
 // --- Histórico ---

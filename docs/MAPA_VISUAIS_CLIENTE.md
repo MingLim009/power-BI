@@ -21,7 +21,7 @@
 | 17 | Movimentações Internas PCD | Card |
 | 18 | Turnover PCD × Geral | Barras comparativas |
 | 19 | Blue Collar × White Collar | Barras HC/PCD (+ % no tooltip) |
-| 20 | % PCD em liderança | Card |
+| 20 | % PCD em liderança | Card: PCD líderes ÷ total de cargos de liderança |
 | 21 | Meta × Realizado | Linha dupla |
 | 22 | Principais Destaques | Cards/texto de insights (gaps e concentrações) |
 
